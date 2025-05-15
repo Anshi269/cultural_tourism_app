@@ -10,8 +10,8 @@ st.set_page_config(page_title="Heritage Sites of India", layout="wide")
 st.title("🏰 Heritage Sites of India")
 
 # Load temple and fort data
-temple_csv_path = os.path.join("data1", "Dataset_Temples.csv")
-fort_csv_path = os.path.join("data1", "Dataset_Forts.csv")
+temple_csv_path = os.path.join("Datasets", "Dataset_Temples.csv")
+fort_csv_path = os.path.join("Datasets", "Dataset_Forts.csv")
 
 # Check if files exist
 if not os.path.exists(temple_csv_path) or not os.path.exists(fort_csv_path):
