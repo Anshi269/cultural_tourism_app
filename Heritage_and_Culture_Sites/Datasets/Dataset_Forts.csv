@@ -1,34 +1,190 @@
 Name,State,Latitude,Longitude
-AJANTA CAVES,MAHARASHTRA,20.5470,75.7007
-ELLORA CAVES,MAHARASHTRA,20.0204,75.2892
-AGRA FORT,UTTAR PRADESH,27.1767,78.0081
-TAJ MAHAL,UTTAR PRADESH,27.1751,78.0421
-SUN TEMPLE,ODISHA,20.3206,86.0923
-GROUP OF MONUMENTS AT MAHABALIPURAM,TAMIL NADU,12.6201,80.1896
-KAZIRANGA NATIONAL PARK,ASSAM,26.6540,93.1962
-MANAS WILDLIFE SANCTUARY,ASSAM,26.6400,90.9751
-KEOLADEO NATIONAL PARK,RAJASTHAN,27.1583,77.5328
-CHURCHES AND CONVENTS OF GOA,GOA,15.4993,73.8124
-KHAJURAHO GROUP OF MONUMENTS,MADHYA PRADESH,24.8497,79.9190
-GROUP OF MONUMENTS AT HAMPI,KARNATAKA,15.3350,76.4610
-FATEHPUR SIKRI,UTTAR PRADESH,27.1000,77.6600
-GROUP OF MONUMENTS AT PATTADAKAL,KARNATAKA,15.9145,75.7779
-ELEPHANTA CAVES,MAHARASHTRA,18.9132,72.9370
-GREAT LIVING CHOLA TEMPLES,TAMIL NADU,10.3545,79.6919
-SUNDARBANS NATIONAL PARK,WEST BENGAL,21.9402,88.8721
-NANDA DEVI AND VALLEY OF FLOWERS NATIONAL PARKS,UTTARAKHAND,30.3977,79.9543
-BUDDHIST MONUMENTS AT SANCHI,MADHYA PRADESH,23.4900,77.7467
-HUMAYUN’S TOMB,DELHI,28.5954,77.2500
-QUTB MINAR AND ITS MONUMENTS,DELHI,28.5245,77.1855
-MOUNTAIN RAILWAYS OF INDIA,WEST BENGAL / TAMIL NADU / HIMACHAL PRADESH,27.0102,88.2642
-MAHABODHI TEMPLE COMPLEX AT BODH GAYA,BIHAR,24.6950,84.9916
-ROCK SHELTERS OF BHIMBETKA,MADHYA PRADESH,23.2592,77.5043
-CHHATRAPATI SHIVAJI TERMINUS (VICTORIA TERMINUS),MAHARASHTRA,18.9400,72.8356
-CHAMPANER-PAVAGADH ARCHAEOLOGICAL PARK,GUJARAT,22.3745,73.5400
-RED FORT COMPLEX,DELHI,28.6562,77.2410
-THE JANTAR MANTAR,RAJASTHAN,26.9250,75.8267
-WESTERN GHATS,MAHARASHTRA / KARNATAKA / KERALA / TAMIL NADU,11.7459,77.0911
-HILL FORTS OF RAJASTHAN,RAJASTHAN,25.3230,74.6285
-RANI-KI-VAV (THE QUEEN’S STEPWELL),GUJARAT,23.6071,72.6004
-GREAT HIMALAYAN NATIONAL PARK CONSERVATION AREA,HIMACHAL PRADESH,32.0102,77.6956
-THE ARCHITECTURAL WORK OF LE CORBUSIER,CHANDIGARH,30.7333,76.7794
+AJANTA CAVES,Maharashtra,20.5470,75.7007
+ELLORA CAVES,Maharashtra,20.0204,75.2892
+ELEPHANTA CAVES,Maharashtra,18.9132,72.9370
+CHHATRAPATI SHIVAJI TERMINUS (VICTORIA TERMINUS),Maharashtra,18.9400,72.8356
+Raigad Fort,Maharashtra,18.2540,73.4203
+Sindhudurg Fort,Maharashtra,16.1402,73.5306
+Pratapgad Fort,Maharashtra,17.7560,73.6283
+Shivneri Fort,Maharashtra,18.2443,73.8564
+Rajgad Fort,Maharashtra,18.2639,73.5883
+Sinhagad Fort,Maharashtra,18.3661,73.7481
+Daulatabad Fort,Maharashtra,20.2000,75.1950
+Lohagad Fort,Maharashtra,18.6848,73.7447
+Toradmal Fort,Maharashtra,20.1640,74.1033
+Vasota Fort,Maharashtra,17.9825,73.7900
+AGRA FORT,Uttar Pradesh,27.1767,78.0081
+TAJ MAHAL,Uttar Pradesh,27.1751,78.0421
+FATEHPUR SIKRI,Uttar Pradesh,27.1000,77.6600
+Allahabad Fort (Prayagraj Fort),Uttar Pradesh,25.4294,81.8674
+Jhansi Fort,Uttar Pradesh,25.4484,78.5761
+Ramnagar Fort,Uttar Pradesh,25.2926,83.0276
+Chunar Fort,Uttar Pradesh,25.1293,82.9083
+Kalpi Fort,Uttar Pradesh,26.1169,79.7358
+Shahjahanpur Fort (Mahmoodabad Fort),Uttar Pradesh,27.5266,80.1087
+SUN TEMPLE,Odisha,20.3206,86.0923
+Barabati Fort,Odisha,20.4704,85.8793
+Raibania Fort,Odisha,21.7113,87.4039
+Chudanga Gada Fort,Odisha,20.3562,85.8396
+Sisupalgarh Fort,Odisha,20.2167,85.8333
+Potagarh Fort,Odisha,19.3806,84.9511
+Jaugada Fort,Odisha,19.3272,84.8585
+Banki Fort,Odisha,20.3794,85.5291
+Sarangagarh Fort,Odisha,20.9993,84.1296
+GROUP OF MONUMENTS AT MAHABALIPURAM,Tamil Nadu,12.6201,80.1896
+KAZIRANGA NATIONAL PARK,Assam,26.6540,93.1962
+MANAS WILDLIFE SANCTUARY,Assam,26.6400,90.9751
+Rang Ghar,Assam,26.1753,91.7291
+Kareng Ghar,Assam,26.1735,91.7332
+Talatal Ghar,Assam,26.1720,91.7296
+Garhgaon Palace,Assam,26.1928,91.7365
+Charaideo Maidam,Assam,27.0022,94.1478
+Kanaklata Fort,Assam,26.9492,92.7565
+Jorhat Fort,Assam,26.7453,94.2049
+KEOLADEO NATIONAL PARK,Rajasthan,27.1583,77.5328
+THE JANTAR MANTAR,Rajasthan,26.9250,75.8267
+HILL FORTS OF RAJASTHAN,Rajasthan,25.3230,74.6285
+Amber Fort,Rajasthan,26.9855,75.8513
+Mehrangarh Fort,Rajasthan,26.2976,73.0186
+Jaisalmer Fort,Rajasthan,26.9124,70.9120
+Chittorgarh Fort,Rajasthan,24.8895,74.6426
+Kumbhalgarh Fort,Rajasthan,25.1460,73.5830
+Junagarh Fort,Rajasthan,28.0229,73.3118
+Ranthambore Fort,Rajasthan,26.0173,76.4565
+Taragarh Fort,Rajasthan,25.7236,75.5786
+Nahargarh Fort,Rajasthan,26.9387,75.8069
+Bhatner Fort,Rajasthan,29.4590,74.3142
+Lohagarh Fort,Rajasthan,27.4956,77.6767
+CHURCHES AND CONVENTS OF GOA,Goa,15.4993,73.8124
+Aguada Fort,Goa,15.4950,73.7639
+Chapora Fort,Goa,15.5984,73.7544
+Reis Magos Fort,Goa,15.5827,73.8178
+Terekhol Fort,Goa,15.6941,73.6733
+Palácio do Cabo (Fortaleza de São Sebastião),Goa,15.4960,73.8243
+KHAJURAHO GROUP OF MONUMENTS,Madhya Pradesh,24.8497,79.9190
+BUDDHIST MONUMENTS AT SANCHI,Madhya Pradesh,23.4900,77.7467
+ROCK SHELTERS OF BHIMBETKA,Madhya Pradesh,23.2592,77.5043
+Gwalior Fort,Madhya Pradesh,26.2183,78.1828
+Mandu Fort,Madhya Pradesh,22.0919,75.2962
+Chanderi Fort,Madhya Pradesh,24.7201,78.1301
+Kanha Fort (near Kanha National Park),Madhya Pradesh,22.3346,80.6117
+Orchha Fort,Madhya Pradesh,26.5039,78.5692
+Kalinjar Fort,Madhya Pradesh,24.1171,80.6800
+Bijaigarh Fort,Madhya Pradesh,26.3157,78.2580
+Maheshwar Fort,Madhya Pradesh,22.0103,75.4201
+GROUP OF MONUMENTS AT HAMPI,Karnataka,15.3350,76.4610
+GROUP OF MONUMENTS AT PATTADAKAL,Karnataka,15.9145,75.7779
+Bangalore Fort,Karnataka,12.9716,77.5946
+Chitradurga Fort,Karnataka,14.2325,76.4006
+Bidar Fort,Karnataka,17.9133,77.5301
+Raichur Fort,Karnataka,16.2069,77.3460
+Bekal Fort,Karnataka,12.4227,75.0262
+Nargund Fort,Karnataka,15.4557,75.3707
+Kittur Fort,Karnataka,15.8150,74.6400
+Vijayapura (Bijapur) Fort,Karnataka,16.8302,75.7100
+GREAT LIVING CHOLA TEMPLES,Tamil Nadu,10.3545,79.6919
+SUNDARBANS NATIONAL PARK,West Bengal,21.9402,88.8721
+Fort William,West Bengal,22.5667,88.3369
+Kurumbera Fort,West Bengal,22.2745,87.3228
+Mohanpur Fort,West Bengal,22.4255,88.1203
+Hazarduari Fort,West Bengal,24.1866,88.2717
+Raichak Fort,West Bengal,22.1913,88.1739
+Maldah (Gour) Fort,West Bengal,25.0026,88.1336
+NANDA DEVI AND VALLEY OF FLOWERS NATIONAL PARKS,Uttarakhand,30.3977,79.9543
+Lohaghat Fort (Banasur Fort),Uttarakhand,29.4134,80.0876
+Pithoragarh Fort,Uttarakhand,29.5820,80.2195
+Chandpur Fort,Uttarakhand,29.8322,78.6196
+Kaliyar Fort (Piran Kaliyar area),Uttarakhand,29.8324,77.7736
+Kalsi Fort (Ashokan Rock Edict Site),Uttarakhand,30.5265,77.7729
+Askot Fort,Uttarakhand,29.8744,80.0658
+HUMAYUN’S TOMB,Delhi,28.5954,77.2500
+QUTB MINAR AND ITS MONUMENTS,Delhi,28.5245,77.1855
+RED FORT COMPLEX,Delhi,28.6562,77.2410
+Old Fort (Purana Qila),Delhi,28.6096,77.2431
+Tughlaqabad Fort,Delhi,28.5079,77.2396
+Feroz Shah Kotla Fort,Delhi,28.6355,77.2408
+Qila Rai Pithora,Delhi,28.5316,77.1982
+Adilabad Fort,Delhi,28.5040,77.2450
+MOUNTAIN RAILWAYS OF INDIA,West Bengal / Tamil Nadu / Himachal Pradesh,27.0102,88.2642
+GREAT HIMALAYAN NATIONAL PARK CONSERVATION AREA,Himachal Pradesh,32.0102,77.6956
+Kangra Fort,Himachal Pradesh,32.0985,76.2711
+Sujanpur Fort,Himachal Pradesh,31.8346,76.5040
+Kuthar Fort,Himachal Pradesh,30.8944,77.0639
+Arki Fort,Himachal Pradesh,31.1500,76.9667
+Kamru Fort,Himachal Pradesh,31.5121,78.0008
+Naggar Castle (Fort-like structure),Himachal Pradesh,32.1092,77.1551
+Jaitak Fort,Himachal Pradesh,30.5449,77.3016
+MAHABODHI TEMPLE COMPLEX AT BODH GAYA,Bihar,24.6950,84.9916
+Rohtas Fort,Bihar,24.9692,84.0577
+Munger Fort,Bihar,25.3740,86.4701
+Nalanda Fort,Bihar,25.1383,85.4436
+Rajgir Fort,Bihar,25.0322,85.4228
+CHAMPANER-PAVAGADH ARCHAEOLOGICAL PARK,Gujarat,22.3745,73.5400
+RANI-KI-VAV (THE QUEEN’S STEPWELL),Gujarat,23.6071,72.6004
+Laxmi Vilas Palace (Vadodara Fort),Gujarat,22.3072,73.1812
+Junagadh Fort,Gujarat,21.5220,70.4606
+Girnar Fort,Gujarat,21.5190,70.4111
+Diu Fort,Gujarat,20.7169,70.9841
+Bhujia Fort,Gujarat,23.2500,69.6667
+Pavagadh Fort,Gujarat,22.4930,73.6340
+Bhadra Fort,Gujarat,23.0295,72.5714
+Ahmedabad Fort,Gujarat,23.0280,72.5714
+WESTERN GHATS,Maharashtra / Karnataka / Kerala / Tamil Nadu,11.7459,77.0911
+THE ARCHITECTURAL WORK OF LE CORBUSIER,Chandigarh,30.7333,76.7794
+Hari Parbat Fort,Jammu & Kashmir,34.0933,74.8074
+Mubarak Mandi Palace (Heritage Complex),Jammu & Kashmir,32.7281,74.8737
+Bahu Fort,Jammu & Kashmir,32.7132,74.8736
+Akhnoor Fort,Jammu & Kashmir,32.8705,74.7332
+Ramgarh Fort,Jammu & Kashmir,32.4942,75.0193
+Sheesh Mahal (Part of Mubarak Mandi Complex),Jammu & Kashmir,32.7285,74.8739
+Gobindgarh Fort,Punjab,31.6226,74.8656
+Qila Mubarak,Punjab,30.2112,74.9455
+Bathinda Fort (Qila Mubarak Bathinda),Punjab,30.2075,74.9451
+Phillaur Fort,Punjab,31.0208,75.7906
+Anandpur Sahib Forts (Qila Anandgarh Sahib),Punjab,31.2392,76.5021
+Maharaja Ranjit Singh Fort (Phillaur Fort),Punjab,31.0208,75.7906
+Bahadurgarh Fort,Punjab,30.3196,76.4086
+Asigarh Fort (Hansi Fort),Haryana,29.1032,75.9645
+Karnal Fort,Haryana,29.6917,76.9845
+Faridabad Fort (Ballabhgarh Fort),Haryana,28.3495,77.3260
+Tosham Fort,Haryana,28.8713,75.9150
+Mahendragarh Fort,Haryana,28.0467,76.1253
+Barsi Gate (part of Hansi fortification),Haryana,29.1025,75.9628
+Narnaul Fort (Dhosi Hill Fort),Haryana,28.0416,76.1084
+Golconda Fort,Andhra Pradesh,17.3833,78.4011
+Gooty Fort,Andhra Pradesh,15.2667,77.8167
+Nagarjuna Konda Fort,Andhra Pradesh,16.4392,79.5928
+Udayagiri Fort,Andhra Pradesh,14.9000,79.0500
+Rachakonda Fort,Andhra Pradesh,17.2500,78.7000
+Srisailam Fort,Andhra Pradesh,16.0728,78.8686
+Chandragiri Fort,Andhra Pradesh,13.5167,79.5833
+Gingee Fort,Tamil Nadu,12.2526,79.3339
+Vellore Fort,Tamil Nadu,12.9165,79.1325
+Dindigul Fort,Tamil Nadu,10.3444,77.9494
+Tiruchirappalli Fort,Tamil Nadu,10.7905,78.7047
+Kanchi Fort (Kanchipuram Fort),Tamil Nadu,12.8342,79.7036
+Palakkad Fort (in Tamil Nadu area near border),Tamil Nadu,10.7743,76.6548
+Kanker Fort,Chhattisgarh,20.2789,81.4975
+Raipur Fort (Mahant Ghasidas Fort),Chhattisgarh,21.2514,81.6296
+Ratanpur Fort,Chhattisgarh,22.0066,82.2423
+Sirpur Fort,Chhattisgarh,22.2541
+Palamu Fort,Jharkhand,24.1100,84.1300
+Nagri Fort,Jharkhand,23.8667,85.4167
+Chandrapura Fort,Jharkhand,23.6833,85.4167
+Dhanbad Fort,Jharkhand,23.7956,86.4355
+Kangla Fort,Manipur,24.8086,93.9417
+Bihu Loukon Fort,Manipur,24.7833,93.9500
+Nongkhlaw Fort,Meghalaya,25.5645,91.8785
+Khasi Hills Forts (General region),Meghalaya,25.5713,91.8787
+Vairengte Fort,Mizoram,23.3157,92.7341
+Chhawrtui Fort,Mizoram,23.7172,92.7267
+Kohima War Cemetery (Fort Area),Nagaland,25.6746,94.1100
+Mon Fort,Nagaland,26.1074,94.8225
+Wokha Fort,Nagaland,26.1103,94.3177
+Rumtek Monastery,Sikkim,27.3350,88.6000
+Namgyal Institute of Tibetology (Old Palace area),Sikkim,27.3335,88.6117
+Lachung Fort (historical site),Sikkim,27.7097,88.6894
+Pemayangtse Monastery (Fort-like structure),Sikkim,27.3294,88.3636
+Ujjayanta Palace,Tripura,23.8339,91.2811
+Old Agartala Palace,Tripura,23.8367,91.2794
+Neermahal Palace,Tripura,23.8300,91.4803
