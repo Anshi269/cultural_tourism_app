@@ -1,34 +1,236 @@
 State,Name,Location,Latitude,Longitude
-TAMIL NADU,Meenakshi Temple,Madurai,9.9195,78.1193
-TAMIL NADU,Ramanathaswamy Temple,Rameshwaram,9.2881,79.3174
-TAMIL NADU,Ranganathaswamy Temple,Tiruchirapalli,10.8622,78.6899
-TAMIL NADU,Brihadeshwara Temple,Thanjavur,10.7827,79.1315
-TAMIL NADU,Suchindram Temple,Kanyakumari,8.1547,77.4652
-TAMIL NADU,Airavateswara Temple,Darasuram,10.9484,79.3565
-TAMIL NADU,Nataraja Temple,Chidambaram,11.3993,79.6935
-TAMIL NADU,Kanchipuram Temples,Kanchipuram,12.83333,79.716667
-KARNATAKA,Virupaksha Temple,Hampi,15.335,76.462
-KARNATAKA,Vitthala Temple,Hampi,15.3167,76.4712
-KARNATAKA,Gomateshwara Temple,Shravanbela Gola(Ruler),12.8576,75.6768
-ANDHRA PRADESH,Lord Venkateswara Temple,Thirumala,13.6781,79.4199
-GUJARAT,Somnath Temple,Saurashtra,20.888,70.4012
-GUJARAT,Dwarakadhish Temple,Dwarka,22.2454,68.9678
-UTTAR PRADESH,KashiVishwanath,Varanasi,25.3109,83.0095
-MAHARASHTRA,ShirdiSai Baba Temple,Shirdi,19.7645,74.4753
-MAHARASHTRA,Siddivinayak Temple,Mumbai,19.0169,72.8305
-JAMMU AND KASHMIR,Vaishno Devi Temple,Katra,33.0306,74.9491
-JAMMU AND KASHMIR,Amarnath Cave Temple,Pahalgam,34.2012,75.502
-UTTARAKHAND,Badrinath Temple,Badrinath,30.7433,79.493
-UTTARAKHAND,Yamunotri Temple,Uttarkashi,31.0144,78.4601
-UTTARAKHAND,Gangotri Temple,Uttarkashi,30.9945,78.9364
-UTTARAKHAND,Kedarnath Temple,Garhwal area,30.7352,79.0669
-ODISHA,Jagannath Temple,Puri,19.806,85.8265
-ODISHA,Lingaraja Temple,Bhubaneswar,20.2386,85.8336
-ODISHA,Konark Sun Temple,Konark,19.8876,86.0945
-PUNJAB,Golden Temple,Amritsar,31.62,74.8765
-RAJASTHAN,Ranakpur Jain Temple,Pali,25.1342,73.476
-MADHYA PRADESH,SanchiStupa,Raisen,23.4793,77.7397
-MADHYA PRADESH,Khajuraho Temple,Khajuraho,24.8516,79.9317
-KERELA,Padmanabaswamy Temple,Thiruvananthapuram,8.4826,76.9482
-BIHAR,Mahabodhi Temple,Bodh Gaya,24.6959,84.9911
-ASSAM,Kamakhya Temple,Guwahati,26.1605,91.7052
+Uttar Pradesh,Kashi Vishwanath Temple,Varanasi,25.3356491,83.0076292
+Uttar Pradesh,Kanak Bhavan Temple,Varanasi,25.3111,82.9920
+Uttar Pradesh,Durga Temple,Varanasi,25.3178,82.9739
+Uttar Pradesh,Janaki Mandir,Janakpur,26.7481,83.9273
+Uttar Pradesh,Mahakaleshwar Jyotirlinga,Ujjain (Note: Ujjain is in Madhya Pradesh but often linked culturally),23.1828,75.7700
+Uttar Pradesh,Trimbakeshwar Temple,Allahabad (Prayagraj),25.4358,81.8463
+Uttar Pradesh,Ambedkar Park,Lucknow,26.8406,80.9342
+Uttar Pradesh,Munshi Ghat Temple,Varanasi,25.3063,83.0048
+Uttar Pradesh,Shri Ram Janmabhoomi,Ayodhya,26.7950,82.1946
+Uttar Pradesh,Bidhan Temple,Mathura,27.4924,77.6737
+Punjab,Golden Temple (Harmandir Sahib),Amritsar,31.6200,74.8765
+Punjab,Durgiana Temple,Amritsar,31.6320,74.8723
+Punjab,Kali Mata Mandir,Patiala,30.3398,76.3869
+Punjab,Shiv Mandir,Gurdaspur,32.0426,75.4054
+Punjab,Shri Devi Talab Mandir,Jalandhar,31.3304,75.5678
+Punjab,Bhagwathi Temple,Bhawanigarh,30.2667,76.0417
+Punjab,Kali Devi Temple,Sangrur,30.2458,75.8425
+Punjab,Mukteshwar Mahadev Temple,Pathankot,32.2430,75.6520
+Punjab,Sheetla Mata Mandir,Ludhiana,30.9000,75.8573
+Punjab,Shri Ram Mandir,Bathinda,30.2075,74.9455
+Punjab,Hanuman Mandir,Amritsar,31.6391,74.8728
+Jammu & Kashmir,Amarnath Temple,Pahalgam,34.01508585,75.32677908
+Jammu & Kashmir,Vaishno Devi Temple,Vaishno Devi,33.027399,74.945375
+Jammu & Kashmir,Shankaracharya Temple,Srinagar,34.0747444,74.8204443
+Jammu & Kashmir,Raghunath Temple,Jammu,32.7266,74.8570
+Jammu & Kashmir,Bahu Fort & Kali Temple,Jammu,32.7146,74.8705
+Jammu & Kashmir,Peer Kho Cave Temple,Jammu,32.7363,74.8730
+Jammu & Kashmir,Martand Sun Temple,Anantnag,33.7486,75.2831
+Jammu & Kashmir,Kheer Bhawani Temple,Tulamula (Ganderbal),34.1742,74.8336
+Jammu & Kashmir,Sharika Devi Temple,Srinagar,34.0915,74.8036
+Jammu & Kashmir,Mahakali Temple,Jammu,32.7267,74.8607
+Jammu & Kashmir,Shiv Khori Cave Temple,Reasi,33.1728,74.6795
+Jammu & Kashmir,Sudh Mahadev Temple,Chenani,33.0333,75.3833
+Jammu & Kashmir,Nau Devi Temple,Katra,32.9923,74.9205
+Delhi,Lotus Temple,New Delhi,28.6138954,77.2090057
+Delhi,Birla Mandir (Laxminarayan Temple),Connaught Place,28.6298,77.2197
+Delhi,Akshardham Temple,Noida Mor,28.6124,77.2770
+Delhi,Kalkaji Mandir,Kalkaji,28.5534,77.2609
+Delhi,Chhatarpur Temple,Chhatarpur,28.5297,77.2051
+Delhi,Hanuman Mandir,Connaught Place,28.6320,77.2166
+Delhi,ISCKON Temple,Maidan Garhi,28.5463,77.1810
+Delhi,Jhandewalan Mandir,Jhandewalan,28.6465,77.2066
+Delhi,Nehru Temple,Chanakyapuri,28.6050,77.1952
+Delhi,Shri Digambar Jain Lal Mandir,Chandni Chowk,28.6562,77.2304
+Himachal Pradesh,Jwalamukhi Temple,Kangra,32.06854705,76.24336792
+Himachal Pradesh,Baijnath Temple,Baijnath,32.0481,76.6453
+Himachal Pradesh,Hidimba Devi Temple,Manali,32.2432,77.1887
+Himachal Pradesh,Naina Devi Temple,Bilaspur,31.2553,76.6069
+Himachal Pradesh,Chintpurni Temple,Una,31.3872,76.1122
+Himachal Pradesh,Bhimakali Temple,Sarahan,31.5149,77.7943
+Himachal Pradesh,Chamunda Devi Temple,Kangra,32.1835,76.4083
+Himachal Pradesh,Shoolini Mata Temple,Solan,30.9078,77.0972
+Himachal Pradesh,Tara Devi Temple,Shimla,31.0673,77.1210
+Himachal Pradesh,Jakhoo Temple,Shimla,31.1048,77.1734
+Himachal Pradesh,Manimahesh Temple,Bharmour (Chamba),32.3924,76.6497
+Himachal Pradesh,Laxmi Narayan Temple,Chamba,32.5549,76.1256
+Himachal Pradesh,Maa Hateshwari Temple,Hatkoti,31.0500,78.2833
+Odisha,Konark Sun Temple,Konark,19.8870,86.0940
+Odisha,Rajarani Temple,Bhubaneswar,20.2563,85.8396
+Odisha,Lingaraj Temple,Bhubaneswar,20.2439,85.8170
+Odisha,Mukteswar Temple,Bhubaneswar,20.2530,85.8362
+Odisha,Jagannath Temple,Puri,19.8133,85.8312
+Odisha,Ananta Vasudeva Temple,Bhubaneswar,20.2606,85.8355
+Odisha,Biraja Temple,Jajpur,21.0073,86.3471
+Odisha,Chausathi Jogini Temple,Bhubaneswar,20.2680,85.8270
+Odisha,Subarnameru Temple,Srikakulam,20.7230,85.8570
+Odisha,Baladevjew Temple,Bhadrak,21.0554,86.5394
+West Bengal,Kalighat Kali Temple,Kolkata,22.4986,88.3434
+West Bengal,Dakshineswar Kali Temple,Kolkata,22.6549,88.3743
+West Bengal,Tarapith Temple,Tarapith,24.1245,87.8102
+West Bengal,Belur Math,Howrah,22.5961,88.3116
+West Bengal,Hanseswari Temple,Burdwan,23.2372,87.8573
+West Bengal,Birla Mandir,Kolkata,22.5700,88.4296
+West Bengal,Adyapeath Temple,Kolkata,22.6281,88.4313
+West Bengal,Jagannath Temple,Kolkata,22.5726,88.3639
+West Bengal,Bholanath Mandir,Shyambazar,22.6160,88.3837
+West Bengal,Mukutmanipur Temple,Bankura,23.1321,87.2861 
+Assam,Kamakhya Temple,Guwahati,26.1806,91.7539
+Assam,Umananda Temple,Guwahati,26.1800,91.7707
+Assam,Basistha Temple,Guwahati,26.1004,91.8231
+Assam,Sankardev Kalakshetra,Guwahati,26.1470,91.7455
+Assam,Hayagriva Madhava Temple,Hajo,26.2202,91.6074
+Assam,Navagraha Temple,Guwahati,26.1884,91.7715
+Gujarat,Dwarkadhish Temple,Dwarka,22.2471,68.9742
+Gujarat,Akshardham Temple,Gandhinagar,23.2233,72.6492
+Gujarat,Somnath Temple,Junagadh,21.5174,70.4643
+Gujarat,Ambaji Temple,Ambaji,24.5369,72.8583
+Gujarat,Patan Jain Temple,Patan,23.8496,72.1296
+Gujarat,Rani ki Vav,Patan,23.8497,72.1280
+Gujarat,Mandir of Shamlaji,Shamlaji,23.1914,72.6020
+Gujarat,Nal Sarovar Temple,Nal Sarovar,22.7706,72.4510
+Maharashtra,Shani Shingnapur,Ahmednagar,19.1628,74.8580
+Maharashtra,Siddhi Vinayak Temple,Mumbai,19.0760,72.8774
+Maharashtra,Shirdi Sai Baba Temple,Shirdi,19.7668,74.4754
+Maharashtra,Trimbakeshwar Shiva Temple,Nashik,19.9452,73.5956
+Maharashtra,Mhalsa Devi Temple,Kolhapur,16.6903,74.2444
+Maharashtra,Bhimashankar Temple,Pune,19.1776,73.7024
+Maharashtra,Ashtavinayak Temples (Multiple Locations),Various,19.2,73.1
+Maharashtra,Dagdusheth Halwai Ganpati,Pune,18.5196,73.8553
+Rajasthan,Nathdwara Shrinathji Temple,Nathdwara,24.9303453,73.8224937
+Rajasthan,Dilwara Temples,Mount Abu,24.592433,72.7081876
+Rajasthan,Jain Temple,Ranakpur,23.943721,71.7971842
+Rajasthan,Somnath Temple,Mount Abu,24.5936,72.7125
+Rajasthan,Birla Mandir,Jaipur,26.9124,75.7873
+Rajasthan,Shri Ranakpur Jain Temple,Ranakpur,25.1255,73.3595
+Rajasthan,Karni Mata Temple,Bikaner,28.0229,73.3127
+Rajasthan,Ganesh Temple,Udaipur,24.5854,73.7125
+Rajasthan,Bhawani Mata Temple,Pushkar,26.4907,74.5529
+Rajasthan,Shri Eklingji Temple,Udaipur,24.5940,73.7203
+Rajasthan,Chaturbhuj Temple,Jaipur,26.9075,75.8154
+Rajasthan,Moti Dungri Ganesh Temple,Jaipur,26.9111,75.8059
+Rajasthan,Jagat Temple,Ajmer,26.4520,74.6399
+Rajasthan,Khatu Shyam Ji Temple,Khatu,27.5849,74.9946
+Madhya Pradesh,Sanchi Stupa,Sanchi,23.4870,77.7406
+Madhya Pradesh,Khajuraho Temples,Khajuraho,24.8515,79.9260
+Madhya Pradesh,Bhojeshwar Temple,Bhopal,23.3563,77.4156
+Madhya Pradesh,Omkareshwar Temple,Omkareshwar,22.2241,76.1691
+Madhya Pradesh,Mahakaleshwar Jyotirlinga,Ujjain,23.1793,75.7849
+Madhya Pradesh,Kaliadeh Palace,Omkareshwar,22.2386,76.1743
+Andhra Pradesh,Tirupati Temple (Tirumala Venkateshwara),Tirumala,13.6795,79.3498
+Andhra Pradesh,Kanaka Durga Temple,Vijayawada,16.5193,80.6305
+Andhra Pradesh,Ahobilam Temple,Ahobilam,15.1333,78.7167
+Andhra Pradesh,Mallikarjuna Temple,Srisailam,16.0728,78.8686
+Andhra Pradesh,Mantralayam Temple,Mantralayam,15.9450,77.4297
+Andhra Pradesh,Simhachalam Temple,Visakhapatnam,17.8229,83.2840
+Andhra Pradesh,Ramamandiram Temple,Tenali,16.2392,80.6474
+Karnataka,Virupaksha Temple,Hampi,15.3358,76.4610
+Karnataka,Vitthala Temple,Hampi,15.3358,76.4610
+Karnataka,Pattabhirama Temple,Hampi,15.3358,76.4610
+Karnataka,Chamundeshwari Temple,Mysore,12.3052,76.6554
+Karnataka,Banashankari Temple,Bangalore,12.9402,77.5277
+Karnataka,Melukote Temple,Melukote,12.8170,76.4931
+Karnataka,Kukke Subramanya Temple,Kukke,13.3662,75.0916
+Karnataka,ISCKON Temple,Bangalore,12.9605,77.6180
+Kerala,Padmanabhaswamy Temple,Thiruvananthapuram,8.5241,76.9361
+Kerala,Sabarimala Temple,Pathanamthitta,9.2781,76.9737
+Kerala,Guruvayur Temple,Guruvayur,10.5941,76.0417
+Kerala,Chottanikkara Temple,Ernakulam,9.9210,76.3703
+Kerala,Attukal Bhagavathy Temple,Thiruvananthapuram,8.4851,76.9470
+Tamil Nadu,Ranganathaswamy Temple,Srirangam,10.7879,78.6124
+Tamil Nadu,Meenakshi Temple,Madurai,9.9261,78.1141
+Tamil Nadu,Ramanathaswamy Temple,Rameshwaram,9.2845,79.3126
+Tamil Nadu,Shore Temple,Mahabalipuram,12.6196,80.1936
+Tamil Nadu,Sripuram Golden Temple,Vellore,12.7948,79.0006
+Tamil Nadu,Brihadeshwara Temple,Thanjavur,10.7860,79.1381
+Tamil Nadu,Chennakesava Temple,Belur,22.6357,88.3398
+Tamil Nadu,Thillai Nataraja Temple,Chidambaram,11.4102,79.6722
+Tamil Nadu,Annamalaiyer Temple,Thiruvannamalai,9.5399,77.6198
+Tamil Nadu,Kailashanatha Temple,Kanchipuram,12.8364,79.7053
+Bihar,Mahabodhi Temple,Bodh Gaya,24.6950,84.9910
+Bihar,Mundeshwari Temple,Kaimur,25.0833,83.5833
+Bihar,Vishnupad Temple,Gaya,24.7916,85.0021
+Bihar,Patna Sahib Gurudwara,Patna,25.6049,85.1414
+Bihar,Sultanganj Buddha Statue,Sultanganj,24.8840,84.0074
+Chhattisgarh,Bhoramdeo Temple,Kawardha,22.0075,81.2340
+Chhattisgarh,Danteshwari Temple,Dantewada,18.9000,81.3500
+Chhattisgarh,Mahanadi Temple,Raipur,21.2514,81.6296
+Chhattisgarh,Balaghat Temple,Balaghat,21.2955,81.6392
+Goa,Mangeshi Temple,Mangeshi,15.4022,73.9833
+Goa,Shanta Durga Temple,Kavlem,15.4025,73.9836
+Goa,Dudhsagar Falls Temple,Near Dudhsagar Falls,15.3142,74.2980
+Goa,Shri Mahalaxmi Temple,Old Goa,15.4989,73.9113
+Haryana,Bhuteshwar Temple,Jind,29.3167,76.3167
+Haryana,Brahma Sarovar Temple,Thanesar (Kurukshetra),29.9685,76.8371
+Haryana,Sthaneshwar Mahadev Temple,Thanesar (Kurukshetra),29.9683,76.8456
+Haryana,Bhadrakali Temple,Thanesar (Kurukshetra),29.9715,76.8411
+Haryana,Kartikeya Temple,Pehowa (Kurukshetra),29.9819,76.5827
+Haryana,Shri Durga Bhavani Mandir,Fatehabad,29.5118,75.4517
+Haryana,Sheetla Mata Mandir,Gurgaon,28.4668,77.0415
+Haryana,Kalka Devi Temple,Kalka (Panchkula),30.8355,76.9397
+Haryana,Shri Siddh Baba Balak Nath Temple,Kalka (Panchkula),30.8450,76.9421
+Haryana,Chandi Mandir,Panchkula,30.7283,76.8951
+Haryana,Baba Mastnath Temple,Rohtak,28.9058,76.5757
+Haryana,Shri Radha Krishan Mandir,Panipat,29.3874,76.9702
+Haryana,Shri Hanuman Mandir,Karnal,29.6857,76.9905
+Jharkhand,Baidyanath Temple,Deoghar,24.4850,86.6950
+Jharkhand,Parasnath Temple,Parasnath,23.8000,86.0000
+Jharkhand,Jagannath Temple,Ranchi,23.3441,85.3096
+Jharkhand,Chhinnamasta Temple,Gaya,24.8261,85.0110
+Jharkhand,Bhadrakali Temple,Ranchi,23.3448,85.3015
+Jharkhand,Jonha Falls Temple,Jonha,23.3447,85.2889
+Jharkhand,Hanuman Temple,Deoghar,24.4865,86.7030
+Jharkhand,Sundernath Temple,Sundernath,23.8290,86.5365
+Manipur,Shri Govindajee Temple,Imphal,24.8074,93.9384
+Manipur,Sanamahi Temple,Imphal,24.8035,93.9423
+Manipur,Kangla Fort Temple,Imphal,24.8100,93.9362
+Manipur,Langthabal Temple,Imphal,24.7696,93.9359
+Manipur,Thangjing Temple,Moirang,24.5806,93.9287
+Manipur,Ibudhou Pakhangba Laishang Temple,Imphal,24.8130,93.9350
+Meghalaya,Nartiang Durga Temple,Nartiang,25.6667,92.3333
+Meghalaya,Mawphlang Sacred Grove,East Khasi Hills,25.6042,91.8509
+Meghalaya,Shillong Cathedral,Shillong,25.5700,91.8801
+Meghalaya,U Lum Sohpetbneng,Shillong,25.5740,91.8763
+Meghalaya,Lalong Monastery,Shillong,25.5790,91.8761
+Meghalaya,Kyrdemkulai,East Khasi Hills,25.6051,91.8622
+Mizoram,Solomon's Temple,Aizawl,23.7367,92.7146
+Mizoram,Thenzawl Presbyterian Church,Thenzawl,23.2812,92.8269
+Mizoram,Chawngtlai Tomb,Chawngtlai,23.6035,92.8034
+Mizoram,Reiek Tlang Sacred Site,Reiek,23.6175,92.7884
+Nagaland,Kohima Cathedral,Kohima,25.6747,94.1100
+Nagaland,Diphupar Rainforest Sacred Site,Dimapur,26.8915,93.7266
+Nagaland,Naga Heritage Village,Khonoma,25.5512,94.2283
+Nagaland,St. Joseph’s Cathedral,Kohima,25.6751,94.1106
+Nagaland,Dimapur Jain Temple,Dimapur,26.9045,93.7278
+Sikkim,Kirateshwar Mahadev Temple,Legship,27.3000,88.3000
+Sikkim,Rumtek Monastery,Rumtek,27.3033,88.5990
+Sikkim,Bombay Palace,Gangtok,27.3381,88.6065
+Sikkim,Enchey Monastery,Gangtok,27.3322,88.6133
+Sikkim,Tashiding Monastery,Tashiding,27.2875,88.4175
+Sikkim,Phodong Monastery,Phodong,27.3712,88.5408
+Sikkim,Ralong Monastery,Ralong,27.3152,88.4553
+Tripura,Tripura Sundari Temple,Unakoti,23.7086,91.2833
+Tripura,Jagannath Temple,Agartala,23.8307,91.2795
+Tripura,Chaturdasha Temple,Agartala,23.8353,91.2780
+Tripura,Mahadev Temple,Agartala,23.8317,91.2750
+Tripura,Neermahal Temple,Rajbari,23.4165,91.4968
+Uttarakhand,Chitai Golu Devta Temple,Almora,29.6000,79.6500  
+Uttarakhand,Badrinath Temple,Badrinath,30.7423302,79.4930256
+Uttarakhand,Kedarnath Temple,Kedarnath,30.7345609,79.0673204
+Uttarakhand,Gangotri Temple,Gangotri,30.9943684,78.9398699
+Uttarakhand,Yamunotri Temple,Yamunotri,30.999214,78.4626951
+Uttarakhand,Har Ki Pauri,Haridwar,29.9384473,78.1452985
+Uttarakhand,Neelkanth Mahadev Temple,Rishikesh,30.1086537,78.2916193
+Uttarakhand,Naina Devi Temple,Nainital,29.29478295,79.41548094
+Uttarakhand,Mansa Devi Temple,Haridwar,29.9544,78.1757
+Uttarakhand,Chandi Devi Temple,Haridwar,29.9456,78.1834
+Uttarakhand,Bharat Mata Mandir,Haridwar,29.9435,78.1301
+Uttarakhand,Tapkeshwar Mahadev Temple,Dehradun,30.3256,78.0514
+Uttarakhand,Mahasu Devta Temple,Hanol (Dehradun),30.7611,78.3317
+Uttarakhand,Kunjapuri Devi Temple,Near Rishikesh,30.0632,78.3246
+Uttarakhand,Triyuginarayan Temple,Rudraprayag,30.5857,79.0572
+Uttarakhand,Tungnath Temple,Rudraprayag,30.4899,79.2189
+Uttarakhand,Jageshwar Dham,Almora,29.6342,79.8514
+Uttarakhand,Baijnath Temple,Bageshwar,29.9126,79.6087
+
