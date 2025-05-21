@@ -31,10 +31,13 @@ for df, label in [(temples, "Temples"), (forts, "Forts")]:
 # Combine
 df = pd.concat([temples, forts], ignore_index=True)
 
-# Sidebar Filters
-st.sidebar.header("🔍 Filter Sites")
-type_filter = st.sidebar.selectbox("Select Type", ["All", "Temples", "Forts"])
-state_filter = st.sidebar.selectbox("Select State", ["All"] + sorted(df["State"].dropna().unique()))
+# Main Page Filters
+st.markdown("### 🔍 Filter Sites")
+col1, col2 = st.columns(2)
+with col1:
+    type_filter = st.selectbox("Select Type", ["All", "Temples", "Forts"])
+with col2:
+    state_filter = st.selectbox("Select State", ["All"] + sorted(df["State"].dropna().unique()))
 
 # Apply Filters
 filtered_df = df.copy()
