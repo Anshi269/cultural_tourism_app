@@ -1,108 +1,94 @@
 import streamlit as st
 import pandas as pd
-import pydeck as pdk
+import folium
+from streamlit_folium import st_folium
+from folium import IFrame
 import os
 
-# Page config
+# Config
 st.set_page_config(page_title="Heritage Sites of India", layout="wide")
-
-# Title
 st.title("🏰 Heritage Sites of India")
 
-# Load temple and fort data
-temple_csv_path = os.path.join("Datasets", "Dataset_Temples.csv")
-fort_csv_path = os.path.join("Datasets", "Dataset_Forts.csv")
+# Load datasets
+temple_path = os.path.join("Datasets", "Dataset_Temples.csv")
+fort_path = os.path.join("Datasets", "Dataset_Forts.csv")
 
-# Check if files exist
-if not os.path.exists(temple_csv_path) or not os.path.exists(fort_csv_path):
-    st.error("❌ One or both datasets not found. Please check the paths.")
+# Check files
+if not os.path.exists(temple_path) or not os.path.exists(fort_path):
+    st.error("❌ Dataset not found!")
     st.stop()
 
-# Read datasets
-temple_df = pd.read_csv(temple_csv_path)
-fort_df = pd.read_csv(fort_csv_path)
+temples = pd.read_csv(temple_path)
+forts = pd.read_csv(fort_path)
 
-# Clean and convert coordinates
-temple_df['Latitude'] = pd.to_numeric(temple_df['Latitude'], errors='coerce')
-temple_df['Longitude'] = pd.to_numeric(temple_df['Longitude'], errors='coerce')
-fort_df['Latitude'] = pd.to_numeric(fort_df['Latitude'], errors='coerce')
-fort_df['Longitude'] = pd.to_numeric(fort_df['Longitude'], errors='coerce')
-temple_df.dropna(subset=['Latitude', 'Longitude'], inplace=True)
-fort_df.dropna(subset=['Latitude', 'Longitude'], inplace=True)
+# Clean and add type
+for df, label in [(temples, "Temples"), (forts, "Forts")]:
+    df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
+    df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
+    df.dropna(subset=["Latitude", "Longitude"], inplace=True)
+    df["Type"] = label
 
-# Add type columns
-temple_df['Type'] = 'Temples'
-fort_df['Type'] = 'Forts'
+# Combine
+df = pd.concat([temples, forts], ignore_index=True)
 
-# Combine data
-df = pd.concat([temple_df, fort_df], ignore_index=True)
+# Sidebar Filters
+st.sidebar.header("🔍 Filter Sites")
+type_filter = st.sidebar.selectbox("Select Type", ["All", "Temples", "Forts"])
+state_filter = st.sidebar.selectbox("Select State", ["All"] + sorted(df["State"].dropna().unique()))
 
-# Filter section
-col1, col2 = st.columns(2)
-with col1:
-    heritage_types = ["All", "Temples", "Forts"]
-    selected_type = st.selectbox("Select Heritage Type", heritage_types)
-
-with col2:
-    states = ["All"] + sorted(df['State'].unique())
-    selected_state = st.selectbox("Select a State", states)
-
-# Apply filters
+# Apply Filters
 filtered_df = df.copy()
-if selected_type != "All":
-    filtered_df = filtered_df[filtered_df['Type'] == selected_type]
-if selected_state != "All":
-    filtered_df = filtered_df[filtered_df['State'] == selected_state]
+if type_filter != "All":
+    filtered_df = filtered_df[filtered_df["Type"] == type_filter]
+if state_filter != "All":
+    filtered_df = filtered_df[filtered_df["State"] == state_filter]
 
-# Highlight only selected state markers brightly; dim others
-df['is_highlight'] = 1
-if selected_state != "All":
-    df['is_highlight'] = df['State'].apply(lambda x: 255 if x == selected_state else 60)
+# Create Map
+if not filtered_df.empty:
+    center_lat = filtered_df["Latitude"].mean()
+    center_lon = filtered_df["Longitude"].mean()
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=6, tiles="CartoDB positron")
 else:
-    df['is_highlight'] = 255
+    m = folium.Map(location=[22.9734, 78.6569], zoom_start=4.5, tiles="CartoDB positron")
+    st.warning("No sites found with selected filters.")
 
-# Map layer with brightness control
-layer = pdk.Layer(
-    "ScatterplotLayer",
-    data=df,
-    get_position='[Longitude, Latitude]',
-    get_radius=5000,
-    get_fill_color='[255, 0, 0, is_highlight]',  # Alpha controls visibility
-    pickable=True
-)
+# Add markers with popup using IFrame for images
+for _, row in filtered_df.iterrows():
+    name = row["Name"]
+    desc = str(row.get("Description", ""))[:150] + "..."
+    state = row["State"]
+    url = row.get("URL", "#")
+    img_url = row.get("ImageURL", "")
 
-# Tooltip
-tooltip = {
-    "html": "<b>{Name}</b><br/>{State}",
-    "style": {
-        "backgroundColor": "black",
-        "color": "white"
-    }
-}
+    if img_url:
+        html = f"""
+        <div style="width:240px">
+            <h4>{name}</h4>
+            <img src="{img_url}" width="230" style="margin-bottom:10px;"><br>
+            <p><b>State:</b> {state}</p>
+            <p>{desc}</p>
+            <a href="{url}" target="_blank">🔗 Read More</a>
+        </div>
+        """
+    else:
+        html = f"""
+        <div style="width:240px">
+            <h4>{name}</h4>
+            <p><b>State:</b> {state}</p>
+            <p>{desc}</p>
+            <a href="{url}" target="_blank">🔗 Read More</a>
+        </div>
+        """
 
-# View state — transition to selected state
-if selected_state != "All":
-    focus_df = df[df['State'] == selected_state]
-    latitude = focus_df['Latitude'].mean()
-    longitude = focus_df['Longitude'].mean()
-    zoom = 6
-else:
-    latitude = 22.9734  # Center of India
-    longitude = 78.6569
-    zoom = 4.5
+    iframe = IFrame(html, width=250, height=300)
+    popup = folium.Popup(iframe, max_width=300)
 
-view_state = pdk.ViewState(
-    latitude=latitude,
-    longitude=longitude,
-    zoom=zoom,
-    pitch=0,
-    transition_duration=1000  # Smooth transition
-)
+    folium.Marker(
+        location=[row["Latitude"], row["Longitude"]],
+        popup=popup,
+        tooltip=name,
+        icon=folium.Icon(color="blue" if row["Type"] == "Temples" else "green", icon="info-sign")
+    ).add_to(m)
 
-# Render the map
-st.pydeck_chart(pdk.Deck(
-    map_style="mapbox://styles/mapbox/light-v10",
-    initial_view_state=view_state,
-    layers=[layer],
-    tooltip=tooltip
-))
+# Display map
+st_data = st_folium(m, width=1200, height=600)
