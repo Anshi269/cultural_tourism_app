@@ -171,4 +171,49 @@ else:
                     </div>
                     """, unsafe_allow_html=True)
                     st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+# --- Festival Section ---
+st.title("Endangered Indian Festivals")
 
+# Load festivals data from CSV
+festivals_df = pd.read_csv('endangered_indian_festivals.csv')
+
+# Filters for festivals
+col3, col4 = st.columns(2)
+with col3:
+    unique_states = sorted(festivals_df['Location (State)'].unique())
+    if 'PAN India' not in unique_states:
+        unique_states.append('PAN India')
+    selected_festival_state = st.selectbox("Select Festival State", ['All'] + unique_states)
+with col4:
+    selected_festival_month = st.selectbox("Select Festival Month", ['All'] + sorted(festivals_df['Month'].unique()))
+
+# Apply festival filters
+filtered_festivals = festivals_df.copy()
+if selected_festival_state != 'All':
+    filtered_festivals = filtered_festivals[filtered_festivals['Location (State)'] == selected_festival_state]
+if selected_festival_month != 'All':
+    filtered_festivals = filtered_festivals[filtered_festivals['Month'] == selected_festival_month]
+
+# Display festival cards
+if selected_festival_state == 'PAN India':
+    st.subheader("🎉 National Festivals Celebrated Across India")
+elif selected_festival_state == 'All':
+    st.subheader("🎊 All Festivals (State-specific and National)")
+
+if filtered_festivals.empty:
+    st.warning("No festivals match your filters.")
+else:
+    for i in range(0, len(filtered_festivals), 3):
+        cols = st.columns(3)
+        for j in range(3):
+            if i + j < len(filtered_festivals):
+                fest = filtered_festivals.iloc[i + j]
+                with cols[j]:
+                    st.markdown(f"""
+                    <div class="card" style="background: rgba(255, 255, 255, 0.08); padding: 10px; border-radius: 8px;">
+                        <h4>{fest['FESTIVAL']}</h4>
+                        <p><b>📍 State:</b> {fest['Location (State)']}</p>
+                        <p><b>🗓 Month:</b> {fest['Month']}</p>
+                        <p>{fest['Description']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
