@@ -1,12 +1,13 @@
 import streamlit as st
 import pandas as pd
 import base64
+import snowflake.connector
 
 # Set page configuration
 st.set_page_config(page_title="Responsible Tourism", layout="wide", initial_sidebar_state="collapsed")
 
 # Background image path
-image_path = "images/main2.png"
+image_path = "Responsible_Tourism/images/main2.png"
 
 # Convert image to base64
 def get_base64_image(img_path):
@@ -37,11 +38,23 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Load tips from CSV
-tips_df = pd.read_csv("responsible_tourism_tips.csv")
+# Connect to Snowflake using secrets
+conn = snowflake.connector.connect(
+    user=st.secrets["snowflake"]["user"],
+    password=st.secrets["snowflake"]["password"],
+    account=st.secrets["snowflake"]["account"],
+    warehouse=st.secrets["snowflake"]["warehouse"],
+    database=st.secrets["snowflake"]["database"],
+    schema=st.secrets["snowflake"]["schema"]
+)
 
-# Group tips by category
-categories = tips_df['Category'].unique()
+# Query data
+query = "SELECT CATEGORY, TIP FROM RESPONSIBLE_TOURISM_TIPS"
+tips_df = pd.read_sql(query, conn)
+conn.close()
+
+# Unique categories
+categories = tips_df['CATEGORY'].unique()
 
 # Define card style with light black background
 card_styles = {
@@ -57,7 +70,7 @@ cols = st.columns(2)
 
 for i, category in enumerate(categories):
     with cols[i % 2]:
-        tips = tips_df[tips_df['Category'] == category]['Tip'].tolist()
+        tips = tips_df[tips_df['CATEGORY'] == category]['TIP'].tolist()
         with st.container():
             st.markdown(
                 f"""

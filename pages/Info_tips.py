@@ -15,7 +15,7 @@ info_cards = [
             <li>Offset carbon emissions for flights.</li>
         </ul>""",
         "color": "#90be6d",
-        "image": "images/sustainable_travel.png"
+        "image": "Responsible_Tourism/images/sustainable_travel.png"
     },
     {
         "title": "🤝 Community Support",
@@ -27,7 +27,7 @@ info_cards = [
             <li>Join cultural events or village tours.</li>
         </ul>""",
         "color": "#f9844a",
-        "image": "images/community.png"
+        "image": "Responsible_Tourism/images/community.png"
     },
     {
         "title": "🧶 Local Handicrafts",
@@ -39,7 +39,7 @@ info_cards = [
             <li>Take local workshops to learn a craft.</li>
         </ul>""",
         "color": "#43aa8b",
-        "image": "images/handicrafts.png"
+        "image": "Responsible_Tourism/images/handicrafts.png"
     }
 ]
 

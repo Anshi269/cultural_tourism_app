@@ -13,7 +13,7 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-    img_file = "data/image.jpg"
+    img_file = "../data/image.jpg"
     img_base64 = get_base64_of_bin_file(img_file)
 
     st.markdown(
@@ -84,10 +84,10 @@ def set_background():
 
 @st.cache_data
 def load_data():
-    sites_df = pd.read_csv("data/heritage_sites.csv")
-    footfall_df = pd.read_csv("data/footfall_tourism.csv")
-    endangered_df = pd.read_csv("data/endangered_art_forms.csv")
-    budget_df = pd.read_csv("data/art_culture_budget.csv")
+    sites_df = pd.read_csv("../data/heritage_sites.csv")
+    footfall_df = pd.read_csv("../data/footfall_tourism.csv")
+    endangered_df = pd.read_csv("../data/endangered_art_forms.csv")
+    budget_df = pd.read_csv("../data/art_culture_budget.csv")
     return sites_df, footfall_df, endangered_df, budget_df
 
 # --------------------- VISUAL COMPONENTS ---------------------

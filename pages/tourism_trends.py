@@ -15,7 +15,7 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 # ----------- Encode your background image -----------
-img_path = "assets/image.png"  # Change path if needed
+img_path = "Tourism_trends/assets/image.png"  # Change path if needed
 img_base64 = get_base64_of_bin_file(img_path)
 
 # ----------- Custom CSS with base64 image background and opacity -----------

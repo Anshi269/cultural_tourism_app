@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 from PIL import Image
+import snowflake.connector
 
 # Page configuration
 st.set_page_config(page_title="Endangered Art Cards", layout="wide")
@@ -66,13 +67,40 @@ div.stSelectbox label {
 st.title("Endangered Indian Art Forms")
 
 # File paths
-script_dir = os.path.dirname(__file__)
-data_path = os.path.join(script_dir, 'endangered_art_forms.csv')
-images_path = os.path.join(script_dir, 'images')
+
+images_path = os.path.join("Traditional_art", 'images')
 
 # Load data
-df = pd.read_csv(data_path)
-df.columns = df.columns.str.strip()
+SNOWFLAKE_CONFIG = {
+    'user': 'YOUR_USER',
+    'password': 'YOUR_PASSWORD',
+    'account': 'YOUR_ACCOUNT',
+    'warehouse': 'YOUR_WAREHOUSE',
+    'database': 'YOUR_DATABASE',
+    'schema': 'YOUR_SCHEMA',
+    'role': 'YOUR_ROLE'  # Optional
+}
+
+# Function to get a Snowflake connection
+def get_snowflake_connection():
+    return snowflake.connector.connect(
+        user=st.secrets["snowflake"]["user"],
+        password=st.secrets["snowflake"]["password"],
+        account=st.secrets["snowflake"]["account"],
+        warehouse=st.secrets["snowflake"]["warehouse"],
+        database=st.secrets["snowflake"]["database"],
+        schema=st.secrets["snowflake"]["schema"]
+    )
+
+def load_endangered_art_forms():
+    conn = get_snowflake_connection()
+    query = "SELECT * FROM ENDANGERED_ART_FORMS"
+    df = pd.read_sql(query, conn)
+    df.columns = df.columns.str.strip()
+    conn.close()
+    return df
+
+df = load_endangered_art_forms()
 
 # Classify art
 def classify_art(art_form):
@@ -172,10 +200,18 @@ else:
                     """, unsafe_allow_html=True)
                     st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
 # --- Festival Section ---
-st.title("Endangered Indian Festivals")
+st.title("Indian Festivals")
 
-# Load festivals data from CSV
-festivals_df = pd.read_csv('endangered_indian_festivals.csv')
+
+def load_festivals():
+    conn = get_snowflake_connection()
+    query = "SELECT * FROM INDIAN_FESTIVALS"
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+festivals_df = load_festivals()
+
 
 # Filters for festivals
 col3, col4 = st.columns(2)
@@ -185,14 +221,14 @@ with col3:
         unique_states.append('PAN India')
     selected_festival_state = st.selectbox("Select Festival State", ['All'] + unique_states)
 with col4:
-    selected_festival_month = st.selectbox("Select Festival Month", ['All'] + sorted(festivals_df['Month'].unique()))
+    selected_festival_month = st.selectbox("Select Festival Month", ['All'] + sorted(festivals_df['MONTH'].unique()))
 
 # Apply festival filters
 filtered_festivals = festivals_df.copy()
 if selected_festival_state != 'All':
     filtered_festivals = filtered_festivals[filtered_festivals['Location (State)'] == selected_festival_state]
 if selected_festival_month != 'All':
-    filtered_festivals = filtered_festivals[filtered_festivals['Month'] == selected_festival_month]
+    filtered_festivals = filtered_festivals[filtered_festivals['MONTH'] == selected_festival_month]
 
 # Display festival cards
 if selected_festival_state == 'PAN India':
@@ -213,7 +249,7 @@ else:
                     <div class="card" style="background: rgba(255, 255, 255, 0.08); padding: 10px; border-radius: 8px;">
                         <h4>{fest['FESTIVAL']}</h4>
                         <p><b>📍 State:</b> {fest['Location (State)']}</p>
-                        <p><b>🗓 Month:</b> {fest['Month']}</p>
-                        <p>{fest['Description']}</p>
+                        <p><b>🗓 Month:</b> {fest['MONTH']}</p>
+                        <p>{fest['DESCRIPTION']}</p>
                     </div>
                     """, unsafe_allow_html=True)

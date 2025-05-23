@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import folium
+import snowflake.connector
 from streamlit_folium import st_folium
 from folium import IFrame
 from folium.plugins import MarkerCluster
@@ -220,15 +221,33 @@ st.image(
 )
 
 # ---------- 🧭 Step 1: Load Data ----------
-temple_path = os.path.join("Datasets", "Dataset_Temples.csv")
-fort_path = os.path.join("Datasets", "Dataset_Forts.csv")
+@st.cache_data(ttl=600)
+def load_data_from_snowflake():
+    conn = snowflake.connector.connect(
+        user=st.secrets["snowflake"]["user"],
+        password=st.secrets["snowflake"]["password"],
+        account=st.secrets["snowflake"]["account"],
+        warehouse=st.secrets["snowflake"]["warehouse"],
+        database=st.secrets["snowflake"]["database"],
+        schema=st.secrets["snowflake"]["schema"]
+    )
+    
+    # Query temples
+    temples_query = "SELECT * FROM DATASET_TEMPLES"
+    temples = pd.read_sql(temples_query, conn)
 
-if not os.path.exists(temple_path) or not os.path.exists(fort_path):
-    st.error("❌ Dataset not found!")
+    # Query forts
+    forts_query = "SELECT * FROM DATASET_FORTS"
+    forts = pd.read_sql(forts_query, conn)
+    
+    conn.close()
+    return temples, forts
+
+try:
+    temples, forts = load_data_from_snowflake()
+except Exception as e:
+    st.error(f"❌ Snowflake connection failed: {e}")
     st.stop()
-
-temples = pd.read_csv(temple_path)
-forts = pd.read_csv(fort_path)
 
 # ---------- 🧹 Step 2: Clean + Tag Data ----------
 for df_, label in [(temples, "Temples"), (forts, "Forts")]:
