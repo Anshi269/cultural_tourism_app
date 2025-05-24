@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import base64
+import os
 import snowflake.connector
 
 # --------------------- SETUP ---------------------
@@ -14,7 +15,13 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-    img_file = "../Dashboard/dashboard_data/image.jpg"
+    #img_file = "../Dashboard/dashboard_data/image.jpg"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
+    # Debug: print the resolved path
+    print(f"Looking for image at: {img_file}")
+    print(f"File exists: {os.path.exists(img_file)}")
+
     img_base64 = get_base64_of_bin_file(img_file)
 
     st.markdown(
