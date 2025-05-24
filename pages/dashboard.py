@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import base64
+import snowflake.connector
 
 # --------------------- SETUP ---------------------
 
@@ -13,7 +14,7 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-    img_file = "../data/image.jpg"
+    img_file = "../Dashboard/dashboard_data/image.jpg"
     img_base64 = get_base64_of_bin_file(img_file)
 
     st.markdown(
@@ -84,18 +85,41 @@ def set_background():
 
 @st.cache_data
 def load_data():
-    sites_df = pd.read_csv("../data/heritage_sites.csv")
-    footfall_df = pd.read_csv("../data/footfall_tourism.csv")
-    endangered_df = pd.read_csv("../data/endangered_art_forms.csv")
-    budget_df = pd.read_csv("../data/art_culture_budget.csv")
-    return sites_df, footfall_df, endangered_df, budget_df
+    conn = snowflake.connector.connect(
+        user=st.secrets["snowflake"]["user"],
+        password=st.secrets["snowflake"]["password"],
+        account=st.secrets["snowflake"]["account"],
+        warehouse=st.secrets["snowflake"]["warehouse"],
+        database=st.secrets["snowflake"]["database"],
+        schema=st.secrets["snowflake"]["schema"]
+    )
+
+    queries = {
+        "sites_df": "SELECT * FROM HERITAGE_SITES",
+        "footfall_df": "SELECT * FROM FOOTFALL_TOURISM",
+        "endangered_df": "SELECT * FROM ENDANGERED_ART_FORMS",
+        "budget_df": "SELECT * FROM ART_CULTURE_BUDGET"
+    }
+
+    dfs = {}
+    for name, query in queries.items():
+        cur = conn.cursor()
+        cur.execute(query)
+        dfs[name] = pd.DataFrame.from_records(
+            cur.fetchall(), columns=[col[0] for col in cur.description]
+        )
+        cur.close()
+
+    conn.close()
+    return dfs["sites_df"], dfs["footfall_df"], dfs["endangered_df"], dfs["budget_df"]
+
 
 # --------------------- VISUAL COMPONENTS ---------------------
 
 def display_metrics(sites_df, footfall_df, endangered_df):
     total_sites = len(sites_df)
 
-    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['total', 'footfall', 'visitors', 'count']]
+    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['TOTAL', 'FOOTFALL', 'VISITORS', 'COUNT']]
     if footfall_cols:
         total_footfall = footfall_df[footfall_cols[0]].sum()
     else:
@@ -123,12 +147,12 @@ def convert_coord(coord_str):
 def cultural_hotspots_map(sites_df):
     st.subheader("🗺 Cultural Hotspots in India")
 
-    state_filter = st.selectbox("📍 Select a State", ["All States"] + sorted(sites_df["LOCATION (STATE)"].dropna().unique()))
+    state_filter = st.selectbox("📍 Select a State", ["All States"] + sorted(sites_df["LOCATION_STATE_"].dropna().unique()))
     
     if state_filter == "All States":
         filtered_sites = sites_df
     else:
-        filtered_sites = sites_df[sites_df["LOCATION (STATE)"] == state_filter]
+        filtered_sites = sites_df[sites_df["LOCATION_STATE_"] == state_filter]
 
     filtered_sites["LATITUDE"] = filtered_sites["LATITUDE"].apply(convert_coord)
     filtered_sites["LONGITUDE"] = filtered_sites["LONGITUDE"].apply(convert_coord)
@@ -145,8 +169,8 @@ def cultural_hotspots_map(sites_df):
         filtered_sites,
         lat="LATITUDE",
         lon="LONGITUDE",
-        hover_name="SITE NAME",
-        hover_data=["LOCATION (STATE)", "YEAR LISTED"],
+        hover_name="SITE_NAME",
+        hover_data=["LOCATION_STATE_", "YEAR_LISTED"],
         zoom=zoom_level,
         height=500
     )
@@ -196,12 +220,12 @@ def run_dashboard():
     """
     ### 🪔 A Journey Through Timeless Traditions
 
-    🇮🇳 *India is not just a country – it’s a living museum* where every street hums with stories,  
+    🇮🇳 India is not just a country – it’s a living museum where every street hums with stories,  
     every festival 🎉 bursts with meaning, and every region guards a piece of humanity’s oldest cultural memory.  
 
-    From the rhythmic beats of *Kathak* 🥁 in Uttar Pradesh, to the delicate strokes of *Pattachitra* 🎨 in Odisha,  
-    from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of *Rajasthan's folk art* 🐫 —  
-    *each expression tells a tale of resilience, faith, and identity.*
+    From the rhythmic beats of Kathak 🥁 in Uttar Pradesh, to the delicate strokes of Pattachitra 🎨 in Odisha,  
+    from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of Rajasthan's folk art 🐫 —  
+    each expression tells a tale of resilience, faith, and identity.
 
     ✨ Travel here isn't about ticking off destinations — it's about immersing in centuries-old legacies that still thrive today.  
     Let’s dive into this cultural canvas and explore the soul of India.
@@ -230,7 +254,7 @@ def run_dashboard():
     st.markdown(
         """
         ### 🧠 Key Insight:
-        As tourism expands 📈, the need to protect *diverse traditions and art forms* becomes even more critical.  
+        As tourism expands 📈, the need to protect diverse traditions and art forms becomes even more critical.  
         🎉 Let’s celebrate responsibly and preserve what makes India timeless. 🇮🇳
         """
     )
@@ -238,4 +262,5 @@ def run_dashboard():
 # --------------------- RUN ---------------------
 
 if __name__ == "__main__":
+
     run_dashboard()
