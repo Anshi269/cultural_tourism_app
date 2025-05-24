@@ -251,9 +251,9 @@ except Exception as e:
 
 # ---------- 🧹 Step 2: Clean + Tag Data ----------
 for df_, label in [(temples, "Temples"), (forts, "Forts")]:
-    df_["Latitude"] = pd.to_numeric(df_["Latitude"], errors="coerce")
-    df_["Longitude"] = pd.to_numeric(df_["Longitude"], errors="coerce")
-    df_.dropna(subset=["Latitude", "Longitude"], inplace=True)
+    df_["LATITUDE"] = pd.to_numeric(df_["LATITUDE"], errors="coerce")
+    df_["LONGITUDE"] = pd.to_numeric(df_["LONGITUDE"], errors="coerce")
+    df_.dropna(subset=["LATITUDE", "LONGITUDE"], inplace=True)
     df_["Type"] = label
 
 df = pd.concat([temples, forts], ignore_index=True)
@@ -266,14 +266,14 @@ col1, col2 = st.columns(2)
 with col1:
     type_filter = st.selectbox(texts[language]["site_type"], ["All", "Temples", "Forts"])
 with col2:
-    state_filter = st.selectbox(texts[language]["state"], ["All"] + sorted(df["State"].dropna().unique()))
+    state_filter = st.selectbox(texts[language]["state"], ["All"] + sorted(df["STATE"].dropna().unique()))
 st.markdown('</div>', unsafe_allow_html=True)
 
 filtered_df = df.copy()
 if type_filter != "All":
     filtered_df = filtered_df[filtered_df["Type"] == type_filter]
 if state_filter != "All":
-    filtered_df = filtered_df[filtered_df["State"] == state_filter]
+    filtered_df = filtered_df[filtered_df["STATE"] == state_filter]
 
 # ---------- 🗺️ Step 4: Journey on the Map ----------
 st.markdown(f'<h2 class="section-header">{texts[language]["map_title"]}</h2>', unsafe_allow_html=True)
@@ -281,8 +281,8 @@ st.markdown(f'<h2 class="section-header">{texts[language]["map_title"]}</h2>', u
 st.markdown('<div class="map-container">', unsafe_allow_html=True)
 
 if not filtered_df.empty:
-    center_lat = filtered_df["Latitude"].mean()
-    center_lon = filtered_df["Longitude"].mean()
+    center_lat = filtered_df["LATITUDE"].mean()
+    center_lon = filtered_df["LONGITUDE"].mean()
     m = folium.Map(location=[center_lat, center_lon], zoom_start=6, tiles="CartoDB positron")
 else:
     m = folium.Map(location=[22.9734, 78.6569], zoom_start=4.5, tiles="CartoDB positron")
@@ -291,11 +291,11 @@ else:
 marker_cluster = MarkerCluster().add_to(m)
 
 for _, row in filtered_df.iterrows():
-    name = row["Name"]
-    desc = str(row.get("Description", ""))[:150] + "..."
-    state = row["State"]
+    name = row["NAME"]
+    desc = str(row.get("DESCRIPTION", ""))[:150] + "..."
+    state = row["STATE"]
     url = row.get("URL", "#")
-    img_url = row.get("ImageURL", "")
+    img_url = row.get("C8", "")
 
     if img_url:
         html = f"""
@@ -322,7 +322,7 @@ for _, row in filtered_df.iterrows():
 
     # Using different colors and icons for better visibility on dark map
     folium.Marker(
-        location=[row["Latitude"], row["Longitude"]],
+        location=[row["LATITUDE"], row["LONGITUDE"]],
         popup=popup,
         tooltip=name,
         icon=folium.Icon(
@@ -339,7 +339,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown(f'<h2 class="section-header">{texts[language]["table_title"]}</h2>', unsafe_allow_html=True)
 
 st.dataframe(
-    filtered_df[["Name", "State", "Type", "Description"]].reset_index(drop=True),
+    filtered_df[["NAME", "STATE", "Type", "DESCRIPTION"]].reset_index(drop=True),
     use_container_width=True
 )
 
