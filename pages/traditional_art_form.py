@@ -7,16 +7,34 @@ import snowflake.connector
 # Page configuration
 st.set_page_config(page_title="Journey Through India's Cultural Tapestry", layout="wide")
 
-# Custom CSS
+# Enhanced Beautiful Styling with Glassmorphism from the reference file
 st.markdown("""
     <style>
-    /* Set background image or gradient */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+    
+    /* Set background image or gradient with glassmorphism enhancement */
     .stApp {
-        background-image: linear-gradient(to bottom, #1b0b0d, #3a1c1f);
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+            linear-gradient(135deg, rgba(27, 11, 13, 0.95) 0%, rgba(58, 28, 31, 0.9) 50%, rgba(51, 65, 85, 0.85) 100%);
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         color: white;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(15, 23, 42, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+        border-radius: 10px;
     }
 
     /* Remove default padding */
@@ -25,39 +43,77 @@ st.markdown("""
         padding-bottom: 2rem;
     }
 
-    /* Card styling */
+    /* Enhanced Card styling with glassmorphism */
     .card {
-        background: rgba(255, 255, 255, 0.05); /* glassy white */
-        backdrop-filter: blur(6px);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 28px !important;
+        padding: 2.5rem !important;
+        box-shadow: 
+            0 12px 40px rgba(255, 107, 107, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
         margin-bottom: 30px;
         margin-top: 100px;
-        transition: transform 0.3s ease;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform-style: preserve-3d !important;
+    }
+    
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 107, 107, 0.6),
+            rgba(255, 217, 61, 0.6),
+            transparent);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 
     .card:hover {
-        transform: scale(1.02);
-        filter: brightness(1.4);
+        transform: translateY(-8px) rotateX(2deg) !important;
+        box-shadow: 
+            0 20px 60px rgba(255, 107, 107, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            0 0 0 1px rgba(255, 107, 107, 0.3) !important;
     }
 
-    /* Image styling */
+    /* Enhanced Image styling */
     .element-container img {
         object-fit: cover;
         width: 335px !important;
         height: 475px !important;
-        border-radius: 12px;
+        border-radius: 20px !important;
         margin-bottom: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
     } 
     
     .element-container img:hover {
-        transform: scale(1.05); /* Slight zoom effect on hover */
-        filter: brightness(1.2); /* Slightly brighten the image on hover */
+        transform: scale(1.05) !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4) !important;
     }
     
     div.stSelectbox label {
         color: white !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
     }
     
     header {
@@ -65,34 +121,151 @@ st.markdown("""
         box-shadow: none !important;
     }
     
-    /* Storytelling elements */
+    /* Enhanced Storytelling elements with glassmorphism */
     .story-intro {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 30px;
-        margin: 20px 0;
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 24px !important;
+        padding: 2.5rem !important;
+        margin: 2rem 0 !important;
         text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .story-intro::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+    }
+    
+    .story-intro:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 
+            0 12px 48px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
     }
     
     .chapter-title {
-        font-size: 2.5rem;
-        background: linear-gradient(45deg, #ff6b6b, #ffd93d);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
-        margin: 40px 0 20px 0;
-        font-weight: bold;
+        font-family: 'Playfair Display', serif !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, #ff6b6b, #ffd93d) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        text-align: center !important;
+        margin: 40px 0 20px 0 !important;
+        text-shadow: 0 4px 20px rgba(255, 107, 107, 0.3) !important;
+        animation: glow 2s ease-in-out infinite alternate !important;
+    }
+    
+    @keyframes glow {
+        from { text-shadow: 0 0 10px rgba(255, 107, 107, 0.3), 0 0 20px rgba(255, 107, 107, 0.2); }
+        to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 0 0 30px rgba(255, 107, 107, 0.3); }
     }
     
     .narrative-text {
-        font-size: 1.2rem;
-        line-height: 1.8;
-        margin: 20px 0;
-        font-style: italic;
-        text-align: center;
-        color: #f0f0f0;
+        color: #e2e8f0 !important;
+        font-size: 1.2rem !important;
+        line-height: 1.8 !important;
+        margin: 20px 0 !important;
+        font-style: italic !important;
+        text-align: center !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    
+    /* Enhanced card headers */
+    .card h4 {
+        font-family: 'Playfair Display', serif !important;
+        font-size: 1.8rem !important;
+        color: #ffd93d !important;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8) !important;
+        margin-bottom: 1.5rem !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Enhanced card text */
+    .card p {
+        color: #e2e8f0 !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+    
+    .card em {
+        color: #ff6b6b !important;
+        font-style: italic !important;
+        font-weight: 500 !important;
+        font-size: 1.05rem !important;
+    }
+    
+    .card b {
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Enhanced selectbox styling */
+    .stSelectbox > div > div > div {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 12px !important;
+        color: white !important;
+    }
+    
+    /* Animation for elements */
+    .card, .story-intro {
+        animation: fadeInUp 0.8s ease-out !important;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Story intro title styling */
+    .story-intro h1 {
+        font-family: 'Playfair Display', serif !important;
+        color: #ffd93d !important;
+        font-size: 3rem !important;
+        margin-bottom: 20px !important;
+        font-weight: 700 !important;
+        text-shadow: 0 4px 20px rgba(255, 217, 61, 0.3) !important;
+    }
+    
+    .story-intro h2 {
+        font-family: 'Playfair Display', serif !important;
+        color: #ffd93d !important;
+        margin-bottom: 20px !important;
+        font-weight: 700 !important;
+        text-shadow: 0 4px 20px rgba(255, 217, 61, 0.3) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -281,6 +454,7 @@ st.markdown("""
     calendar of eternal happiness...
 </div>
 """, unsafe_allow_html=True)
+
 def display_image_from_url(url, placeholder_text="No Image Available"):
     """
     Display image from URL or show placeholder
