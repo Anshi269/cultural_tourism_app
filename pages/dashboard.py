@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import base64
+import os
 import snowflake.connector
 
 # --------------------- SETUP ---------------------
@@ -14,26 +15,9 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-import os
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
-
-print(f"Looking for image at: {img_file}")
-print(f"File exists: {os.path.exists(img_file)}")
-
-img_base64 = get_base64_of_bin_file(img_file)
-
-
-import os
-
-def set_background():
-    cherry_black = "#2E1A1A"
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
 
-    # Debug info (optional: remove in production)
     print(f"Looking for image at: {img_file}")
     print(f"File exists: {os.path.exists(img_file)}")
 
@@ -125,7 +109,6 @@ def set_background():
         unsafe_allow_html=True
     )
 
-
 # --------------------- LOAD DATA ---------------------
 
 @st.cache_data
@@ -201,12 +184,7 @@ def cultural_hotspots_map(sites_df):
     filtered_sites["LATITUDE"] = filtered_sites["LATITUDE"].apply(convert_coord)
     filtered_sites["LONGITUDE"] = filtered_sites["LONGITUDE"].apply(convert_coord)
 
-    if len(filtered_sites) == 1:
-        zoom_level = 10
-    elif state_filter != "All States":
-        zoom_level = 5
-    else:
-        zoom_level = 4
+    zoom_level = 4 if state_filter == "All States" else (10 if len(filtered_sites) == 1 else 5)
 
     fig = px.scatter_mapbox(
         filtered_sites,
@@ -257,37 +235,28 @@ def run_dashboard():
     sites_df, footfall_df, endangered_df, budget_df = load_data()
 
     st.markdown(
-    """
-    ### 🪔 A Journey Through Timeless Traditions
+        """
+        ### 🪔 A Journey Through Timeless Traditions
 
-    🇮🇳 India is not just a country – it’s a living museum where every street hums with stories,  
-    every festival 🎉 bursts with meaning, and every region guards a piece of humanity’s oldest cultural memory.  
+        🇮🇳 India is not just a country – it’s a living museum where every street hums with stories,  
+        every festival 🎉 bursts with meaning, and every region guards a piece of humanity’s oldest cultural memory.  
 
-    From the rhythmic beats of Kathak 🥁 in Uttar Pradesh, to the delicate strokes of Pattachitra 🎨 in Odisha,  
-    from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of Rajasthan's folk art 🐫 —  
-    each expression tells a tale of resilience, faith, and identity.
+        From the rhythmic beats of Kathak 🥁 in Uttar Pradesh, to the delicate strokes of Pattachitra 🎨 in Odisha,  
+        from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of Rajasthan's folk art 🐫 —  
+        each expression tells a tale of resilience, faith, and identity.
 
-    ✨ Travel here isn't about ticking off destinations — it's about immersing in centuries-old legacies that still thrive today.  
-    Let’s dive into this cultural canvas and explore the soul of India.
-
-    ---
-    """
-)
+        ✨ Travel here isn't about ticking off destinations — it's about immersing in centuries-old legacies that still thrive today.  
+        Let’s dive into this cultural canvas and explore the soul of India.
+        """
+    )
 
     st.markdown("### 🧭 Summary at a Glance")
-    st.markdown("🔍 A snapshot of key indicators representing India's cultural ecosystem.")
     display_metrics(sites_df, footfall_df, endangered_df)
 
-    st.markdown("---")
-
     st.markdown("### 🌍 Discover Heritage Across States")
-    st.markdown("🧱 From forts and temples to monasteries and museums – every dot on the map is a window into history.")
     cultural_hotspots_map(sites_df)
 
-    st.markdown("---")
-
     st.markdown("### 📈 Tracking Cultural Investment")
-    st.markdown("💸 Government investment fuels preservation and growth of heritage. Here's how the art & culture budget evolved.")
     budget_chart(budget_df)
 
     st.markdown("---")
