@@ -167,11 +167,6 @@ We welcome contributions to help preserve and promote India's cultural heritage!
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
-
-- Project Repository: [GitHub Link]
-- Documentation: [Documentation Link]
-- Issues: [Issues Link]
 
 ## 🙏 Acknowledgments
 
