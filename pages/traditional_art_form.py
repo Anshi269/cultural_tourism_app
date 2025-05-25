@@ -5,17 +5,36 @@ from PIL import Image
 import snowflake.connector
 
 # Page configuration
-st.set_page_config(page_title="Endangered Art Cards", layout="wide")
-# Custom CSS
+st.set_page_config(page_title="Journey Through India's Cultural Tapestry", layout="wide")
+
+# Enhanced Beautiful Styling with Glassmorphism from the reference file
 st.markdown("""
     <style>
-    /* Set background image or gradient */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+    
+    /* Set background image or gradient with glassmorphism enhancement */
     .stApp {
-        background-image: linear-gradient(to bottom, #1b0b0d, #3a1c1f);
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+            linear-gradient(135deg, rgba(27, 11, 13, 0.95) 0%, rgba(58, 28, 31, 0.9) 50%, rgba(51, 65, 85, 0.85) 100%);
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         color: white;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(15, 23, 42, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+        border-radius: 10px;
     }
 
     /* Remove default padding */
@@ -24,50 +43,256 @@ st.markdown("""
         padding-bottom: 2rem;
     }
 
-    /* Card styling */
+    /* Enhanced Card styling with glassmorphism */
     .card {
-        background: rgba(255, 255, 255, 0.05); /* glassy white */
-        backdrop-filter: blur(6px);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 28px !important;
+        padding: 2.5rem !important;
+        box-shadow: 
+            0 12px 40px rgba(255, 107, 107, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
         margin-bottom: 30px;
         margin-top: 100px;
-        transition: transform 0.3s ease;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform-style: preserve-3d !important;
+    }
+    
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 107, 107, 0.6),
+            rgba(255, 217, 61, 0.6),
+            transparent);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 
     .card:hover {
-        transform: scale(1.02);
-        filter: brightness(1.4);
+        transform: translateY(-8px) rotateX(2deg) !important;
+        box-shadow: 
+            0 20px 60px rgba(255, 107, 107, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            0 0 0 1px rgba(255, 107, 107, 0.3) !important;
     }
 
-    /* Image styling */
+    /* Enhanced Image styling */
     .element-container img {
         object-fit: cover;
         width: 335px !important;
         height: 475px !important;
-        border-radius: 12px;
+        border-radius: 20px !important;
         margin-bottom: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
     } 
-            .element-container img:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    filter: brightness(1.2); /* Slightly brighten the image on hover */
-}
-div.stSelectbox label {
-    color: white !important;
-}
- header {
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
+    
+    .element-container img:hover {
+        transform: scale(1.05) !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    div.stSelectbox label {
+        color: white !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    
+    header {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+    
+    /* Enhanced Storytelling elements with glassmorphism */
+    .story-intro {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 24px !important;
+        padding: 2.5rem !important;
+        margin: 2rem 0 !important;
+        text-align: center;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .story-intro::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+    }
+    
+    .story-intro:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 
+            0 12px 48px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .chapter-title {
+        font-family: 'Playfair Display', serif !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, #ff6b6b, #ffd93d) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        text-align: center !important;
+        margin: 40px 0 20px 0 !important;
+        text-shadow: 0 4px 20px rgba(255, 107, 107, 0.3) !important;
+        animation: glow 2s ease-in-out infinite alternate !important;
+    }
+    
+    @keyframes glow {
+        from { text-shadow: 0 0 10px rgba(255, 107, 107, 0.3), 0 0 20px rgba(255, 107, 107, 0.2); }
+        to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 0 0 30px rgba(255, 107, 107, 0.3); }
+    }
+    
+    .narrative-text {
+        color: #e2e8f0 !important;
+        font-size: 1.2rem !important;
+        line-height: 1.8 !important;
+        margin: 20px 0 !important;
+        font-style: italic !important;
+        text-align: center !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    
+    /* Enhanced card headers */
+    .card h4 {
+        font-family: 'Playfair Display', serif !important;
+        font-size: 1.8rem !important;
+        color: #ffd93d !important;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8) !important;
+        margin-bottom: 1.5rem !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Enhanced card text */
+    .card p {
+        color: #e2e8f0 !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+    
+    .card em {
+        color: #ff6b6b !important;
+        font-style: italic !important;
+        font-weight: 500 !important;
+        font-size: 1.05rem !important;
+    }
+    
+    .card b {
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Enhanced selectbox styling */
+    .stSelectbox > div > div > div {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 12px !important;
+        color: white !important;
+    }
+    
+    /* Animation for elements */
+    .card, .story-intro {
+        animation: fadeInUp 0.8s ease-out !important;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Story intro title styling */
+    .story-intro h1 {
+        font-family: 'Playfair Display', serif !important;
+        color: #ffd93d !important;
+        font-size: 3rem !important;
+        margin-bottom: 20px !important;
+        font-weight: 700 !important;
+        text-shadow: 0 4px 20px rgba(255, 217, 61, 0.3) !important;
+    }
+    
+    .story-intro h2 {
+        font-family: 'Playfair Display', serif !important;
+        color: #ffd93d !important;
+        margin-bottom: 20px !important;
+        font-weight: 700 !important;
+        text-shadow: 0 4px 20px rgba(255, 217, 61, 0.3) !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
+# Storytelling Introduction
+st.markdown("""
+<div class="story-intro">
+    <h1 style="color: #ffd93d; font-size: 3rem; margin-bottom: 20px;">📚 Once Upon a Time in India...</h1>
+    <p class="narrative-text">
+        In a land where every village whispers ancient tales and every street corner echoes with forgotten melodies, 
+        we embark on a magical journey through India's living heritage. Come, let us unveil the stories that time forgot, 
+        but the heart remembers...
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
-st.title("Endangered Indian Art Forms")
+st.markdown('<div class="chapter-title">Chapter I: The Endangered Treasures</div>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="narrative-text">
+    Deep in the heart of our motherland lie art forms so precious, so rare, that they flutter like endangered butterflies 
+    on the edge of oblivion. Each one carries the soul of generations, the dreams of our ancestors, and the hope that 
+    someone, somewhere, will remember their beauty...
+</div>
+""", unsafe_allow_html=True)
 
 # File paths
-
 images_path = os.path.join("Traditional_art", 'images')
 
 # Load data
@@ -130,33 +355,40 @@ art_descriptions = {
     "Kathakali": "<b>🎭 Eyes that speak, colors that roar — Kathakali weaves stories like never before.</b><br> Originating from Kerala, this classical dance-drama is characterized by elaborate costumes, intricate movements, and expressive gestures that bring ancient epics to life. It's a grand spectacle of storytelling through dance and theatre.</br>",
     "Chhau Dance": "<b>💃 A martial grace, masked in lore — Chhau echoes tribal myths and more.</b><br> This vibrant dance form from the tribal regions of India combines elements of martial arts, acrobatics, and storytelling. Dancers wear expressive masks and perform highly energetic movements to depict mythological tales.</br>",
     "Khon": "<b>🎭 Thai-Indian blend of mask and might — Khon brings Ramayana into light.</b><br> A classical Thai dance-drama performed with ornate costumes and elaborate masks, Khon is a captivating portrayal of the Ramayana epic through intricate movements and vibrant stage designs. The performance is a beautiful blend of dance, music, and drama.</br>",
-    "Birhor Dance": "<b>🌿 From forest beats and tribal ties, Birhor’s rhythm never dies.</b><br> This dance form is part of the rituals of the Birhor tribe, one of the indigenous groups of India. Known for its earthy beats and vibrant movements, it reflects their deep connection to nature and their spiritual beliefs.</br>",
-    "Pung Cholom": "<b>🥁 Dance and drum in perfect flight — Pung Cholom is Manipur’s delight.</b><br> A spectacular dance form from Manipur, it involves rhythmic drumming and synchronized movements. The dancers, who are male performers, drum while balancing on one foot, creating a captivating performance that blends music and dance.</br>",
-    "Taiko Drumming": "<b>🥁 Thunder roars in rhythmic flow — Taiko’s beat is ancient glow.</b><br> This traditional Japanese drum performance is known for its powerful, thunderous rhythms. Played on large drums, the Taiko performance is often accompanied by synchronized choreography, making it a visually stunning and exhilarating experience.</br>",
+    "Birhor Dance": "<b>🌿 From forest beats and tribal ties, Birhor's rhythm never dies.</b><br> This dance form is part of the rituals of the Birhor tribe, one of the indigenous groups of India. Known for its earthy beats and vibrant movements, it reflects their deep connection to nature and their spiritual beliefs.</br>",
+    "Pung Cholom": "<b>🥁 Dance and drum in perfect flight — Pung Cholom is Manipur's delight.</b><br> A spectacular dance form from Manipur, it involves rhythmic drumming and synchronized movements. The dancers, who are male performers, drum while balancing on one foot, creating a captivating performance that blends music and dance.</br>",
+    "Taiko Drumming": "<b>🥁 Thunder roars in rhythmic flow — Taiko's beat is ancient glow.</b><br> This traditional Japanese drum performance is known for its powerful, thunderous rhythms. Played on large drums, the Taiko performance is often accompanied by synchronized choreography, making it a visually stunning and exhilarating experience.</br>",
     "Bhavai": "<b>🎭 Village theatre with comic soul — Bhavai plays its humorous role.</b><br> Originating in Gujarat, Bhavai is a folk theatre form that combines music, dance, and drama. It is a humorous and often satirical performance, telling stories of social issues, love, and morality, while engaging the audience with its witty dialogue and lively tunes.</br>",
-    "Kutiyattam":"<b>🕉 Sanskrit stage in temple air — Kutiyattam is Kerala’s rare flair.</b><br> Known as one of the oldest living theatre traditions in India, Kutiyattam is a classical Sanskrit drama performed in Kerala's temples. This highly stylized form of theatre uses elaborate gestures, expressions, and rhythmic movements to perform sacred texts.</br>",
+    "Kutiyattam":"<b>🕉 Sanskrit stage in temple air — Kutiyattam is Kerala's rare flair.</b><br> Known as one of the oldest living theatre traditions in India, Kutiyattam is a classical Sanskrit drama performed in Kerala's temples. This highly stylized form of theatre uses elaborate gestures, expressions, and rhythmic movements to perform sacred texts.</br>",
     "Tholu Bommalata": "<b>🖼 Shadows dance with leather grace — Tholu Bommalata, an illuminated space.</b><br> A traditional shadow puppetry art form from Andhra Pradesh, Tholu Bommalata uses intricately crafted leather puppets to perform epic stories. The puppets are held against a backlit screen, creating beautiful shadow plays that are both visual and auditory spectacles.</br>",
     "Warli Painting": "<b>🎨 Circles of life in tribal art — Warli tells tales close to heart.</b><br> A tribal art form from Maharashtra, Warli paintings are known for their simple geometric shapes and depictions of nature, animals, and daily life. These paintings tell the stories of the Warli tribe, reflecting their close bond with nature and their agricultural lifestyle.</br>",
     "Phad Painting": "<b>📜 Scrolls unfold heroic streams — Phad flows with Rajput dreams.</b><br> A traditional scroll painting from Rajasthan, Phad paintings depict the heroic tales of local deities and warriors. These intricate paintings are created on cloth or paper and are accompanied by folk songs narrating the stories of gods and their divine acts.</br>",
-    "Kalighat Paintings": "<b>🖌 Satire and grace in every stroke — Kalighat’s brush never broke.</b><br> Originating from Kolkata, Kalighat paintings are known for their vibrant, expressive, and satirical style. These paintings often depict religious and mythological figures, as well as social and political themes, and are characterized by bold lines and minimalistic yet striking forms.</br>",
-    "Saora Art": "<b>🌾 Symbols speak in Saora style — A tribal tale in every mile.</b><br> Originating from the Saora tribe in Odisha, Saora art is created using natural dyes and features intricate patterns that symbolize their connection to nature. These paintings often depict animals, birds, and trees, showcasing the tribe’s reverence for their environment and its spiritual significance.</br>",
+    "Kalighat Paintings": "<b>🖌 Satire and grace in every stroke — Kalighat's brush never broke.</b><br> Originating from Kolkata, Kalighat paintings are known for their vibrant, expressive, and satirical style. These paintings often depict religious and mythological figures, as well as social and political themes, and are characterized by bold lines and minimalistic yet striking forms.</br>",
+    "Saora Art": "<b>🌾 Symbols speak in Saora style — A tribal tale in every mile.</b><br> Originating from the Saora tribe in Odisha, Saora art is created using natural dyes and features intricate patterns that symbolize their connection to nature. These paintings often depict animals, birds, and trees, showcasing the tribe's reverence for their environment and its spiritual significance.</br>",
     "Gond Art": "<b>🌳 Trees that talk and dreams that fly — Gond art paints the forest sky.</b><br> This tribal art form from Madhya Pradesh is known for its vibrant colors and intricate patterns. Gond paintings often depict animals, birds, and the forces of nature, telling stories from the artists' dreams and spiritual beliefs.</br>",
     "Chitrakathi": "<b>📖 Epics sung with brush in hand — Chitrakathi brings myths to land.</b><br> A traditional art form from Maharashtra, Chitrakathi is a form of narrative painting that depicts mythological stories. The paintings are often accompanied by storytelling through song, bringing the ancient tales to life with vibrant colors and dynamic compositions.</br>",
-    "Pattachitra": "<b>🎨 Silk of tales and gods divine — Pattachitra’s lines entwine.</b><br> Originating from Odisha, Pattachitra paintings are known for their intricate details and religious themes. These paintings often depict Hindu deities, mythological stories, and temples, and are created on cloth or dried palm leaves, showcasing a unique blend of art and spirituality.</br>",
-    "Patola Weaving": "<b>🧵 Double ikat, a woven spell — Patola’s precision is hard to tell.</b><br> A traditional form of silk weaving from Gujarat, Patola is famous for its intricate double ikat technique. The art of creating these beautiful woven patterns requires immense skill, and the resulting fabric is known for its vivid colors and complex geometric designs.</br>",
-    "Channapatna Toys": "<b>🪀 Wooden joy from Karnataka’s core — Channapatna smiles in folklore.</b><br> A traditional craft from Karnataka, Channapatna toys are made from wood and feature vibrant colors. The craft involves a unique process of creating toys using the lathe machine, and the designs are often inspired by nature and folk traditions.</br>",
+    "Pattachitra": "<b>🎨 Silk of tales and gods divine — Pattachitra's lines entwine.</b><br> Originating from Odisha, Pattachitra paintings are known for their intricate details and religious themes. These paintings often depict Hindu deities, mythological stories, and temples, and are created on cloth or dried palm leaves, showcasing a unique blend of art and spirituality.</br>",
+    "Patola Weaving": "<b>🧵 Double ikat, a woven spell — Patola's precision is hard to tell.</b><br> A traditional form of silk weaving from Gujarat, Patola is famous for its intricate double ikat technique. The art of creating these beautiful woven patterns requires immense skill, and the resulting fabric is known for its vivid colors and complex geometric designs.</br>",
+    "Channapatna Toys": "<b>🪀 Wooden joy from Karnataka's core — Channapatna smiles in folklore.</b><br> A traditional craft from Karnataka, Channapatna toys are made from wood and feature vibrant colors. The craft involves a unique process of creating toys using the lathe machine, and the designs are often inspired by nature and folk traditions.</br>",
     "Kalamkari": "<b>✒️ Pen and plant dye draw the divine — Kalamkari tells stories in design.</b><br> A traditional art form from Andhra Pradesh, Kalamkari is a method of painting on fabric using natural dyes. The artwork often depicts mythological stories, divine beings, and scenes from Hindu epics, and the intricate designs are created with a bamboo pen.</br>",
     "Charkha Weaving": "<b>🧶 Spin the thread of swadeshi pride — Charkha weaves a soulful stride.</b><br> Popularized by Mahatma Gandhi during the Indian freedom struggle, Charkha weaving is a symbol of self-reliance and nationalism. The craft involves spinning cotton yarn into thread and has been revived as a symbol of sustainable living and the fight for independence.</br>"
 }
 
+st.markdown("""
+<div class="narrative-text">
+    🔍 Choose your path, dear traveler. Which realm of our cultural kingdom calls to your heart? 
+    Perhaps the graceful dance forms that make gods weep with joy? Or the paintings that capture 
+    the very essence of village life? Let the filters below guide your journey...
+</div>
+""", unsafe_allow_html=True)
 
 # Filters
 col1, col2 = st.columns(2)
 
 with col1:
-    selected_category = st.selectbox("Select Category", ['All'] + sorted(df['art_category'].unique()))
+    selected_category = st.selectbox("🎨 Choose Your Art Realm", ['All'] + sorted(df['art_category'].unique()))
 with col2:
-    selected_state = st.selectbox("Select State", ['All'] + sorted(df['LOCATION (STATE)'].unique()))
+    selected_state = st.selectbox("🗺️ Select Your Destination", ['All'] + sorted(df['LOCATION (STATE)'].unique()))
 
 # Apply filters
 filtered_df = df.copy()
@@ -167,10 +399,22 @@ if selected_category != 'All':
 if selected_state != 'All':
     filtered_df = filtered_df[filtered_df['LOCATION (STATE)'] == selected_state]
 
-# Display cards
+# Display cards with storytelling context
 if filtered_df.empty:
-    st.warning("No results match your filters.")
+    st.markdown("""
+    <div class="narrative-text" style="color: #ff6b6b;">
+        😔 Alas! The combination you seek exists only in dreams. Try a different path, dear explorer, 
+        for there are many stories yet to be told...
+    </div>
+    """, unsafe_allow_html=True)
 else:
+    st.markdown(f"""
+    <div class="narrative-text">
+        ✨ Behold! Your journey reveals <strong>{len(filtered_df)}</strong> magnificent treasures. 
+        Each card below holds a universe of stories, waiting for someone like you to discover their magic...
+    </div>
+    """, unsafe_allow_html=True)
+    
     for i in range(0, len(filtered_df), 3):
         cols = st.columns(3)
         for j in range(3):
@@ -181,37 +425,67 @@ else:
                 image_file = os.path.join(images_path, image_name)
 
                 with cols[j]:
-                   with cols[j]:
                     st.markdown(f"""
                         <div class="card">
                     <h4>{art_name}</h4>
                     """, unsafe_allow_html=True)
 
                     if os.path.exists(image_file):
-                     st.image(image_file, use_container_width=True)
+                        st.image(image_file, use_container_width=True)
                     else:
                         st.image("https://via.placeholder.com/300x200?text=No+Image", use_container_width=True)
 
                     st.markdown(f"""
                     <p><b>📍 State(s):</b> {row['LOCATION (STATE)']}</p>
                     <p><b>🎨 Category:</b> {row['art_category']}</p>
-                    <em>{art_descriptions.get(art_name, "🌟 A forgotten gem in India’s cultural crown.")}</em>
+                    <em>{art_descriptions.get(art_name, "🌟 A forgotten gem in India's cultural crown.")}</em>
                     </div>
                     """, unsafe_allow_html=True)
                     st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
-# --- Festival Section ---
-st.title("Indian Festivals")
 
+# --- Festival Section ---
+st.markdown('<div class="chapter-title">Chapter II: The Calendar of Joy</div>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="narrative-text">
+    As our first tale draws to a close, another chapter unfolds... In India, every month is a celebration, 
+    every season a festival of colors, lights, and unending joy. These are not just dates on a calendar, 
+    but moments when the entire soul of our nation dances in unison. Come, let us walk through this 
+    calendar of eternal happiness...
+</div>
+""", unsafe_allow_html=True)
+
+def display_image_from_url(url, placeholder_text="No Image Available"):
+    """
+    Display image from URL or show placeholder
+    """
+    try:
+        if url and url.strip() and url.startswith(('http://', 'https://')):
+            st.image(url.strip(), use_container_width=True)
+        else:
+            st.image(f"https://via.placeholder.com/300x200?text={placeholder_text.replace(' ', '+')}", 
+                    use_container_width=True)
+    except Exception as e:
+        st.image(f"https://via.placeholder.com/300x200?text={placeholder_text.replace(' ', '+')}", 
+                use_container_width=True)
 
 def load_festivals():
     conn = get_snowflake_connection()
-    query = "SELECT * FROM INDIAN_FESTIVALS"
+    # Updated query to include image URL column - adjust column name as needed
+    query = "SELECT * FROM INDIAN_FESTIVALS"  
     df = pd.read_sql(query, conn)
+    df.columns = df.columns.str.strip()
     conn.close()
     return df
 
 festivals_df = load_festivals()
 
+st.markdown("""
+<div class="narrative-text">
+    🎪 Which celebration calls to your spirit? The grand festivals that unite all of India, 
+    or the intimate regional celebrations that make each state unique? Let your heart choose...
+</div>
+""", unsafe_allow_html=True)
 
 # Filters for festivals
 col3, col4 = st.columns(2)
@@ -219,9 +493,9 @@ with col3:
     unique_states = sorted(festivals_df['Location (State)'].unique())
     if 'PAN India' not in unique_states:
         unique_states.append('PAN India')
-    selected_festival_state = st.selectbox("Select Festival State", ['All'] + unique_states)
+    selected_festival_state = st.selectbox("🏛️ Choose Your Festival Realm", ['All'] + unique_states)
 with col4:
-    selected_festival_month = st.selectbox("Select Festival Month", ['All'] + sorted(festivals_df['MONTH'].unique()))
+    selected_festival_month = st.selectbox("📅 Pick Your Celebratory MONTH", ['All'] + sorted(festivals_df['MONTH'].unique()))
 
 # Apply festival filters
 filtered_festivals = festivals_df.copy()
@@ -230,15 +504,38 @@ if selected_festival_state != 'All':
 if selected_festival_month != 'All':
     filtered_festivals = filtered_festivals[filtered_festivals['MONTH'] == selected_festival_month]
 
-# Display festival cards
+# Display festival cards with storytelling context
 if selected_festival_state == 'PAN India':
-    st.subheader("🎉 National Festivals Celebrated Across India")
+    st.markdown("""
+    <div class="narrative-text">
+        🇮🇳 Ah, you've chosen the festivals that bind our entire nation in celebration! 
+        These are the moments when from Kashmir to Kanyakumari, every heart beats as one...
+    </div>
+    """, unsafe_allow_html=True)
 elif selected_festival_state == 'All':
-    st.subheader("🎊 All Festivals (State-specific and National)")
+    st.markdown("""
+    <div class="narrative-text">
+        🌈 You wish to witness the complete tapestry of our celebrations! From intimate village 
+        gatherings to grand national festivities, here lies the full spectrum of Indian joy...
+    </div>
+    """, unsafe_allow_html=True)
 
 if filtered_festivals.empty:
-    st.warning("No festivals match your filters.")
+    st.markdown("""
+    <div class="narrative-text" style="color: #ff6b6b;">
+        💫 The stars have not aligned for this combination, dear seeker. Perhaps try another 
+        time or place, for festivals are everywhere in our magical land...
+    </div>
+    """, unsafe_allow_html=True)
 else:
+    st.markdown(f"""
+    <div class="narrative-text">
+        🎊 Your quest reveals <strong>{len(filtered_festivals)}</strong> celebrations of pure joy! 
+        Each festival below is a doorway to understanding the heart and soul of India...
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Modified festival cards display with URL images
     for i in range(0, len(filtered_festivals), 3):
         cols = st.columns(3)
         for j in range(3):
@@ -246,10 +543,34 @@ else:
                 fest = filtered_festivals.iloc[i + j]
                 with cols[j]:
                     st.markdown(f"""
-                    <div class="card" style="background: rgba(255, 255, 255, 0.08); padding: 10px; border-radius: 8px;">
-                        <h4>{fest['FESTIVAL']}</h4>
-                        <p><b>📍 State:</b> {fest['Location (State)']}</p>
-                        <p><b>🗓 Month:</b> {fest['MONTH']}</p>
-                        <p>{fest['DESCRIPTION']}</p>
+                        <div class="card">
+                    <h4>{fest['FESTIVAL']}</h4>
+                    """, unsafe_allow_html=True)
+
+                    # Display festival image from URL - Replace 'IMAGE_URL' with your actual column name
+                    festival_image_url = fest.get('image_path', '')  # Replace 'IMAGE_URL' with your actual column name
+                    display_image_from_url(festival_image_url, "Festival+Image")
+
+                    st.markdown(f"""
+                    <p><b>📍 State:</b> {fest['Location (State)']}</p>
+                    <p><b>🗓 Month:</b> {fest['MONTH']}</p>
+                    <p>{fest['DESCRIPTION']}</p>
                     </div>
                     """, unsafe_allow_html=True)
+                    st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+
+# Storytelling Conclusion
+st.markdown("""
+<div class="story-intro" style="margin-top: 50px;">
+    <h2 style="color: #ffd93d; margin-bottom: 20px;">🌅 The Story Continues...</h2>
+    <p class="narrative-text">
+        And so, dear traveler, our journey through the enchanted realms of Indian culture draws to a pause, 
+        but never to an end. For every art form you've discovered holds a thousand untold stories, 
+        and every festival carries the dreams of millions. Take these treasures with you, 
+        and perhaps... just perhaps... you too will become a guardian of these beautiful traditions.
+    </p>
+    <p class="narrative-text" style="color: #ff6b6b; font-weight: bold;">
+        Remember: Every time you share these stories, a dying art form gains another breath of life. ✨
+    </p>
+</div>
+""", unsafe_allow_html=True)
