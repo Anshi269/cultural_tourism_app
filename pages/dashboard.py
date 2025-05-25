@@ -14,16 +14,29 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-<<<<<<< Updated upstream
-    img_file = "../Dashboard/dashboard_data/image.jpg"
-=======
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
+
+print(f"Looking for image at: {img_file}")
+print(f"File exists: {os.path.exists(img_file)}")
+
+img_base64 = get_base64_of_bin_file(img_file)
+
+
+import os
+
+def set_background():
+    cherry_black = "#2E1A1A"
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
 
+    # Debug info (optional: remove in production)
     print(f"Looking for image at: {img_file}")
     print(f"File exists: {os.path.exists(img_file)}")
 
->>>>>>> Stashed changes
     img_base64 = get_base64_of_bin_file(img_file)
 
     st.markdown(
@@ -111,6 +124,7 @@ def set_background():
         """,
         unsafe_allow_html=True
     )
+
 
 # --------------------- LOAD DATA ---------------------
 
