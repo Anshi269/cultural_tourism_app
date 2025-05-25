@@ -22,7 +22,8 @@ CultureVista is an innovative platform that leverages open government datasets a
 - **Database**: Snowflake
 - **Data Sources**: Open Government Datasets, Tourism Analytics
 - **Visualization**: Interactive charts and mapping tools
-- **Deployment**: [Add your deployment platform]
+- **Deployment**: https://culturevista-hsbdtsspw9nhsl53cbajza.streamlit.app/
+
 
 ## 🚀 Getting Started
 
