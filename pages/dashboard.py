@@ -16,6 +16,7 @@ def set_background():
     cherry_black = "#2E1A1A"
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
+   
     img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
 
     print(f"Looking for image at: {img_file}")
@@ -26,26 +27,32 @@ def set_background():
     st.markdown(
         f"""
         <style>
+            /* Main app background and font */
             .stApp {{
                 background-color: {cherry_black};
-                color: white;
                 font-family: 'Segoe UI', sans-serif;
+                /* Do not force global text color here */
             }}
+
+            /* Container styling */
             .block-container {{
                 padding: 0 2rem;
                 max-width: 100%;
-                color: white;
+                /* No forced color here */
             }}
+
             .main > div {{
                 padding-top: 20px;
             }}
 
+            /* Text elements only - avoid forcing on all div and span */
             h1, h2, h3, h4, h5, h6,
-            .stSubheader, .stMarkdown, .stText, .stTextInput > div > div,
-            label, p, div, span, small {{
+            .stSubheader, .stMarkdown, .stText,
+            label, p, small {{
                 color: white !important;
             }}
 
+            /* Inputs and select boxes: white text on dark backgrounds */
             .stSelectbox label,
             .stSelectbox div[data-baseweb="select"],
             .stSelectbox div[class*="css"] > div,
@@ -55,6 +62,7 @@ def set_background():
             .stNumberInput input,
             .stDateInput input {{
                 color: white !important;
+                background-color: #3c2a2a !important;
             }}
 
             .stSelectbox [data-baseweb="select"] > div {{
@@ -62,13 +70,12 @@ def set_background():
                 color: white !important;
             }}
 
-            .stMetric {{
-                color: white !important;
-            }}
-            .stMetric label, .stMetric div {{
+            /* Metrics color */
+            .stMetric, .stMetric label, .stMetric div {{
                 color: white !important;
             }}
 
+            /* Header container with background image */
             .header-container {{
                 position: relative;
                 text-align: center;
@@ -169,7 +176,10 @@ def convert_coord(coord_str):
     elif coord_str[-1] in ['S', 'W']:
         return -float(coord_str[:-1])
     else:
-        return float(coord_str)
+        try:
+            return float(coord_str)
+        except ValueError:
+            return None
 
 def cultural_hotspots_map(sites_df):
     st.subheader("🗺 Cultural Hotspots in India")
@@ -181,6 +191,7 @@ def cultural_hotspots_map(sites_df):
     else:
         filtered_sites = sites_df[sites_df["LOCATION_STATE_"] == state_filter]
 
+    filtered_sites = filtered_sites.copy()  # avoid SettingWithCopyWarning
     filtered_sites["LATITUDE"] = filtered_sites["LATITUDE"].apply(convert_coord)
     filtered_sites["LONGITUDE"] = filtered_sites["LONGITUDE"].apply(convert_coord)
 
@@ -202,6 +213,7 @@ def budget_chart(budget_df):
     st.subheader("💰 Cultural Budget Over the Years")
 
     budget_long = budget_df.melt(id_vars='State/UT', var_name='Year', value_name='Budget_Allocation_Crore')
+    budget_long['Budget_Allocation_Crore'] = pd.to_numeric(budget_long['Budget_Allocation_Crore'], errors='coerce').fillna(0)
     budget_summary = budget_long.groupby('Year')['Budget_Allocation_Crore'].sum().reset_index()
 
     fig = px.bar(
@@ -214,7 +226,13 @@ def budget_chart(budget_df):
         color_discrete_sequence=["#F1948A"]
     )
     fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-    fig.update_layout(yaxis_tickprefix="₹", xaxis_title="Year", plot_bgcolor="#2E1A1A", paper_bgcolor="#2E1A1A")
+    fig.update_layout(
+        yaxis_tickprefix="₹",
+        xaxis_title="Year",
+        plot_bgcolor="#2E1A1A",
+        paper_bgcolor="#2E1A1A",
+        font_color='white',
+    )
     st.plotly_chart(fig, use_container_width=True)
 
 # --------------------- MAIN DASHBOARD ---------------------
@@ -253,10 +271,10 @@ def run_dashboard():
     st.markdown("### 🧭 Summary at a Glance")
     display_metrics(sites_df, footfall_df, endangered_df)
 
-    st.markdown("### 🌍 Discover Heritage Across States")
+    st.markdown("---")
     cultural_hotspots_map(sites_df)
 
-    st.markdown("### 📈 Tracking Cultural Investment")
+    st.markdown("---")
     budget_chart(budget_df)
 
     st.markdown("---")
@@ -267,6 +285,8 @@ def run_dashboard():
         🎉 Let’s celebrate responsibly and preserve what makes India timeless. 🇮🇳
         """
     )
+
+
 
 # --------------------- RUN ---------------------
 
