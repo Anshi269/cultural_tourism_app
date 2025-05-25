@@ -15,10 +15,10 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
-    #img_file = "../Dashboard/dashboard_data/image.jpg"
     script_dir = os.path.dirname(os.path.abspath(__file__))
+   
     img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
-    # Debug: print the resolved path
+
     print(f"Looking for image at: {img_file}")
     print(f"File exists: {os.path.exists(img_file)}")
 
@@ -27,25 +27,55 @@ def set_background():
     st.markdown(
         f"""
         <style>
+            /* Main app background and font */
             .stApp {{
                 background-color: {cherry_black};
-                color: white;
                 font-family: 'Segoe UI', sans-serif;
-                padding: 0;
+                /* Do not force global text color here */
             }}
-            .stMetric label {{
-                color: #ffffff;
-            }}
-            h1, h2, h3, .stSubheader {{
-                color: #F5CBA7;
-            }}
+
+            /* Container styling */
             .block-container {{
                 padding: 0 2rem;
                 max-width: 100%;
+                /* No forced color here */
             }}
+
             .main > div {{
                 padding-top: 20px;
             }}
+
+            /* Text elements only - avoid forcing on all div and span */
+            h1, h2, h3, h4, h5, h6,
+            .stSubheader, .stMarkdown, .stText,
+            label, p, small {{
+                color: white !important;
+            }}
+
+            /* Inputs and select boxes: white text on dark backgrounds */
+            .stSelectbox label,
+            .stSelectbox div[data-baseweb="select"],
+            .stSelectbox div[class*="css"] > div,
+            .stTextInput input,
+            .stTextArea textarea,
+            .stSlider,
+            .stNumberInput input,
+            .stDateInput input {{
+                color: white !important;
+                background-color: #3c2a2a !important;
+            }}
+
+            .stSelectbox [data-baseweb="select"] > div {{
+                background-color: #3c2a2a !important;
+                color: white !important;
+            }}
+
+            /* Metrics color */
+            .stMetric, .stMetric label, .stMetric div {{
+                color: white !important;
+            }}
+
+            /* Header container with background image */
             .header-container {{
                 position: relative;
                 text-align: center;
@@ -57,16 +87,14 @@ def set_background():
                 border-radius: 12px;
                 overflow: hidden;
             }}
-            /* Overlay with opacity */
             .header-container::before {{
                 content: "";
                 position: absolute;
                 top: 0; left: 0; right: 0; bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+                background-color: rgba(0, 0, 0, 0.5);
                 z-index: 0;
                 border-radius: 12px;
             }}
-            /* Ensure text is above overlay */
             .header-container > * {{
                 position: relative;
                 z-index: 1;
@@ -120,13 +148,12 @@ def load_data():
     conn.close()
     return dfs["sites_df"], dfs["footfall_df"], dfs["endangered_df"], dfs["budget_df"]
 
-
 # --------------------- VISUAL COMPONENTS ---------------------
 
 def display_metrics(sites_df, footfall_df, endangered_df):
     total_sites = len(sites_df)
 
-    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['TOTAL', 'FOOTFALL', 'VISITORS', 'COUNT']]
+    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['total', 'footfall', 'visitors', 'count']]
     if footfall_cols:
         total_footfall = footfall_df[footfall_cols[0]].sum()
     else:
@@ -149,7 +176,10 @@ def convert_coord(coord_str):
     elif coord_str[-1] in ['S', 'W']:
         return -float(coord_str[:-1])
     else:
-        return float(coord_str)
+        try:
+            return float(coord_str)
+        except ValueError:
+            return None
 
 def cultural_hotspots_map(sites_df):
     st.subheader("🗺 Cultural Hotspots in India")
@@ -161,16 +191,11 @@ def cultural_hotspots_map(sites_df):
     else:
         filtered_sites = sites_df[sites_df["LOCATION_STATE_"] == state_filter]
 
+    filtered_sites = filtered_sites.copy()  # avoid SettingWithCopyWarning
     filtered_sites["LATITUDE"] = filtered_sites["LATITUDE"].apply(convert_coord)
     filtered_sites["LONGITUDE"] = filtered_sites["LONGITUDE"].apply(convert_coord)
 
-    # Adaptive zoom
-    if len(filtered_sites) == 1:
-        zoom_level = 10
-    elif state_filter != "All States":
-        zoom_level = 5
-    else:
-        zoom_level = 4
+    zoom_level = 4 if state_filter == "All States" else (10 if len(filtered_sites) == 1 else 5)
 
     fig = px.scatter_mapbox(
         filtered_sites,
@@ -184,11 +209,11 @@ def cultural_hotspots_map(sites_df):
     fig.update_layout(mapbox_style="open-street-map", margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig, use_container_width=True)
 
-
 def budget_chart(budget_df):
     st.subheader("💰 Cultural Budget Over the Years")
 
     budget_long = budget_df.melt(id_vars='State/UT', var_name='Year', value_name='Budget_Allocation_Crore')
+    budget_long['Budget_Allocation_Crore'] = pd.to_numeric(budget_long['Budget_Allocation_Crore'], errors='coerce').fillna(0)
     budget_summary = budget_long.groupby('Year')['Budget_Allocation_Crore'].sum().reset_index()
 
     fig = px.bar(
@@ -201,7 +226,13 @@ def budget_chart(budget_df):
         color_discrete_sequence=["#F1948A"]
     )
     fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-    fig.update_layout(yaxis_tickprefix="₹", xaxis_title="Year", plot_bgcolor="#2E1A1A", paper_bgcolor="#2E1A1A")
+    fig.update_layout(
+        yaxis_tickprefix="₹",
+        xaxis_title="Year",
+        plot_bgcolor="#2E1A1A",
+        paper_bgcolor="#2E1A1A",
+        font_color='white',
+    )
     st.plotly_chart(fig, use_container_width=True)
 
 # --------------------- MAIN DASHBOARD ---------------------
@@ -209,7 +240,6 @@ def budget_chart(budget_df):
 def run_dashboard():
     set_background()
 
-    # Custom greeting header with background image
     st.markdown(
         """
         <div class="header-container">
@@ -220,41 +250,31 @@ def run_dashboard():
         unsafe_allow_html=True
     )
 
-    # Load data
     sites_df, footfall_df, endangered_df, budget_df = load_data()
 
     st.markdown(
-    """
-    ### 🪔 A Journey Through Timeless Traditions
+        """
+        ### 🪔 A Journey Through Timeless Traditions
 
-    🇮🇳 India is not just a country – it’s a living museum where every street hums with stories,  
-    every festival 🎉 bursts with meaning, and every region guards a piece of humanity’s oldest cultural memory.  
+        🇮🇳 India is not just a country – it’s a living museum where every street hums with stories,  
+        every festival 🎉 bursts with meaning, and every region guards a piece of humanity’s oldest cultural memory.  
 
-    From the rhythmic beats of Kathak 🥁 in Uttar Pradesh, to the delicate strokes of Pattachitra 🎨 in Odisha,  
-    from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of Rajasthan's folk art 🐫 —  
-    each expression tells a tale of resilience, faith, and identity.
+        From the rhythmic beats of Kathak 🥁 in Uttar Pradesh, to the delicate strokes of Pattachitra 🎨 in Odisha,  
+        from the sacred chants 📿 echoing in Himalayan monasteries 🏔, to the vibrant colors of Rajasthan's folk art 🐫 —  
+        each expression tells a tale of resilience, faith, and identity.
 
-    ✨ Travel here isn't about ticking off destinations — it's about immersing in centuries-old legacies that still thrive today.  
-    Let’s dive into this cultural canvas and explore the soul of India.
-
-    ---
-    """
-)
+        ✨ Travel here isn't about ticking off destinations — it's about immersing in centuries-old legacies that still thrive today.  
+        Let’s dive into this cultural canvas and explore the soul of India.
+        """
+    )
 
     st.markdown("### 🧭 Summary at a Glance")
-    st.markdown("🔍 A snapshot of key indicators representing India's cultural ecosystem.")
     display_metrics(sites_df, footfall_df, endangered_df)
 
     st.markdown("---")
-
-    st.markdown("### 🌍 Discover Heritage Across States")
-    st.markdown("🧱 From forts and temples to monasteries and museums – every dot on the map is a window into history.")
     cultural_hotspots_map(sites_df)
 
     st.markdown("---")
-
-    st.markdown("### 📈 Tracking Cultural Investment")
-    st.markdown("💸 Government investment fuels preservation and growth of heritage. Here's how the art & culture budget evolved.")
     budget_chart(budget_df)
 
     st.markdown("---")
@@ -266,8 +286,9 @@ def run_dashboard():
         """
     )
 
+
+
 # --------------------- RUN ---------------------
 
 if __name__ == "__main__":
-
     run_dashboard()
