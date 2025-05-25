@@ -18,28 +18,39 @@ def get_base64_of_bin_file(bin_file):
 img_path = "Tourism_trends/assets/image.png"  # Change path if needed
 img_base64 = get_base64_of_bin_file(img_path)
 
-# ----------- Custom CSS with base64 image background and opacity -----------
+# ----------- Custom CSS with base64 image background, opacity and white text -----------
 st.markdown(
     f"""
     <style>
+    /* Overall app background and text */
     .stApp {{
         background-color: #1a0b0b;  /* cherry black */
         color: #eee;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }}
+
+    /* Hide Streamlit default hamburger menu and footer */
     .css-1d391kg {{
         display: none;
     }}
+
+    /* Page padding */
     .css-18e3th9 {{
         padding-left: 2rem;
         padding-right: 2rem;
     }}
+
+    /* Headers and text */
     .css-10trblm, .css-1v0mbdj {{
-        color: #eee;
+        color: #eee !important;
     }}
+
+    /* Plotly charts background transparent */
     .js-plotly-plot {{
         background-color: transparent !important;
     }}
+
+    /* Heading with background image */
     .heading-bg {{
         position: relative;
         height: 150px;
@@ -62,7 +73,7 @@ st.markdown(
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.3;  /* Decrease this for more transparency */
+        opacity: 0.3;
         z-index: 0;
         border-radius: 10px;
     }}
@@ -70,6 +81,58 @@ st.markdown(
         position: relative;
         z-index: 1;
     }}
+
+    /* White text in selectbox dropdown and selected option */
+    div[role="listbox"] > div {{
+        color: #eee !important;
+        background-color: #1a0b0b !important;
+    }}
+    div[role="combobox"] > div > input, 
+    div[role="combobox"] > div > div {{
+        color: #eee !important;
+        background-color: #1a0b0b !important;
+    }}
+
+    /* Labels in widgets */
+    label {{
+        color: #eee !important;
+    }}
+
+    /* Streamlit widget input text */
+    input, select, textarea {{
+        background-color: #2a1a1a !important;
+        color: #eee !important;
+        border: 1px solid #555;
+    }}
+
+    /* Placeholder text color */
+    ::placeholder {{
+        color: #bbb !important;
+        opacity: 1; /* Firefox */
+    }}
+
+    /* Checkbox label color */
+    .stCheckbox > label > div {{
+        color: #eee !important;
+    }}
+
+    /* Radio button label color */
+    .stRadio > label > div {{
+        color: #eee !important;
+    }}
+
+    /* Button text color */
+    button {{
+        color: #eee !important;
+        background-color: #3a1a1a !important;
+        border: 1px solid #555;
+    }}
+
+    /* Markdown links */
+    a {{
+        color: #ffa726 !important; /* Orange accent */
+    }}
+
     </style>
     """,
     unsafe_allow_html=True
@@ -108,8 +171,6 @@ def load_data_from_snowflake():
 
 footfall_df, culture_df = load_data_from_snowflake()
 
-print(footfall_df.columns.tolist())
-
 footfall_df['STATE'] = footfall_df['STATE'].str.strip()
 culture_df['STATE'] = culture_df['STATE'].str.strip()
 footfall_df = footfall_df.copy()
@@ -121,7 +182,7 @@ footfall_df['MONTH'] = pd.Categorical(footfall_df['MONTH'], categories=month_ord
 
 # ----------- Intro -----------
 st.markdown("""
-Namaste! 🙏 Welcome to the *India Tourism Trends Dashboard* – your interactive travel compass 🧭 for understanding where, when, and how people explore this incredible country 🇮🇳.
+Namaste! 🙏 Welcome to the India Tourism Trends Dashboard – your interactive travel compass 🧭 for understanding where, when, and how people explore this incredible country 🇮🇳.
 
 Here you’ll find:
 - 📈 Trends in tourist footfall (domestic vs foreign)
@@ -143,7 +204,7 @@ filtered_df['TOTAL'] = filtered_df['DOMESTIC'] + filtered_df['FOREIGN']
 # ----------- Line Chart -----------
 st.subheader("📈 Monthly Tourist Footfall (Domestic & International)")
 st.markdown(f"""
-Explore how tourist footfall in *{states}* varies month-to-month.  
+Explore how tourist footfall in {states} varies month-to-month.  
 Look for seasonal spikes, festival peaks 🎉, or off-season dips 💤 to plan or market travel efficiently.
 """)
 
@@ -156,7 +217,7 @@ st.plotly_chart(fig_line, use_container_width=True)
 # ----------- Heatmap -----------
 st.subheader("🌡 Seasonality Heatmap")
 st.markdown(f"""
-Compare *{states}* across multiple years to discover recurring patterns 📊.  
+Compare {states} across multiple years to discover recurring patterns 📊.  
 This helps with forecasting and understanding how tourism reacts to seasons 🌦 or external events 🦠.
 """)
 
@@ -176,17 +237,17 @@ st.pyplot(fig)
 # ----------- Heatmap Explanation -----------
 st.markdown(f"""
 #### 🔍 What the Heatmap Tells You:
-- *Darker shades* represent months with higher tourist numbers 📈.
-- Spot *seasonal patterns* like winters, festivals, or school holidays.
-- Detect *outliers* like dips during lockdowns or boosts from campaigns 🧭.
-- Use insights to plan *marketing strategies* or forecast infrastructure needs 🚧.
+- Darker shades represent months with higher tourist numbers 📈.
+- Spot seasonal patterns like winters, festivals, or school holidays.
+- Detect outliers like dips during lockdowns or boosts from campaigns 🧭.
+- Use insights to plan marketing strategies or forecast infrastructure needs 🚧.
 """)
 
 # ----------- Pie Chart -----------
 st.subheader("🥧 Domestic vs Foreign Tourists")
 st.markdown(f"""
-Understand the tourist mix in *{states}* for *{years}*.  
-This pie chart gives quick insights on how to balance marketing efforts 🎯 between *local explorers* and *global travelers*.
+Understand the tourist mix in {states} for {years}.  
+This pie chart gives quick insights on how to balance marketing efforts 🎯 between local explorers and global travelers.
 """)
 
 totals = filtered_df[['DOMESTIC', 'FOREIGN']].sum()
@@ -198,8 +259,8 @@ st.plotly_chart(fig_pie, use_container_width=True)
 # ----------- Tourist Circuit Suggestions -----------
 st.subheader("🛤 Suggested Tourist Circuits")
 st.markdown("""
-Why visit just one destination when you can experience *a journey of discovery*? ✨  
-These curated *multi-destination circuits* combine culture, climate, and geography for unforgettable travel adventures 🚂.
+Why visit just one destination when you can experience a journey of discovery? ✨  
+These curated multi-destination circuits combine culture, climate, and geography for unforgettable travel adventures 🚂.
 
 Explore sample 3–5 day circuits below. Ideal for both tourists and travel planners!
 """)
@@ -238,16 +299,16 @@ info = circuits[selected_circuit]
 st.markdown(f"""
 ### {selected_circuit}
 
-*States Covered:* {info["States"]}  
-*Highlights:* {info["Highlights"]}  
-*Best Time to Visit:* {info["Best Time"]}
+States Covered: {info["States"]}  
+Highlights: {info["Highlights"]}  
+Best Time to Visit: {info["Best Time"]}
 """)
 
 # ----------- Monthly Travel Suggestions -----------
 st.subheader("🗓 Best Places to Visit by Month")
 st.markdown("""
-No matter the month, *India has magic waiting for you* ✨  
-Pick a month to see *tailored recommendations* based on festivals, climate, and regional culture.
+No matter the month, India has magic waiting for you ✨  
+Pick a month to see tailored recommendations based on festivals, climate, and regional culture.
 """)
 
 recommendations = pd.DataFrame({
@@ -271,10 +332,14 @@ recommendations = pd.DataFrame({
 month_sel = st.selectbox("Select Month", month_order)
 rec_places = recommendations.loc[recommendations['Month'] == month_sel, 'Recommended Places'].values[0]
 
-st.markdown(f"*Best Places to Visit in {month_sel}:* {rec_places}")
+st.markdown(f"Best Places to Visit in {month_sel}: {rec_places}")
 
 # ----------- Footer -----------
-st.markdown("""
----
-Developed by 🇮🇳 Tourism Insights Team | Data Source: Govt. of India | © 2025  
-""")
+st.markdown(
+    """
+    <hr>
+    <p style='text-align:center; color:#bbb; font-size:0.8rem;'>
+        Tourism Trends  
+    </p>
+    """, unsafe_allow_html=True
+)
