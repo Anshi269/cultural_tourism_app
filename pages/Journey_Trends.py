@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import base64
 import snowflake.connector
+
 import os
 
 st.set_page_config(page_title="Tourism Trends", layout="wide")
@@ -165,6 +166,11 @@ st.plotly_chart(fig_line, use_container_width=True)
 
 # ----------- Heatmap -----------
 st.subheader("🌡 Seasonality Heatmap")
+st.markdown(f"""
+Compare {states} across multiple years to discover recurring patterns 📊.  
+This helps with forecasting and understanding how tourism reacts to seasons 🌦 or external events 🦠.
+""")
+
 state_df = footfall_df[footfall_df['STATE'] == states].copy()
 state_df['TOTAL'] = state_df['DOMESTIC'] + state_df['FOREIGN']
 heatmap_data = state_df.groupby(['YEAR', 'MONTH'], as_index=False)['TOTAL'].sum()
@@ -177,8 +183,25 @@ ax.tick_params(colors='#eee', rotation=45)
 plt.yticks(rotation=0)
 st.pyplot(fig)
 
+# ----------- Heatmap Explanation -----------
+st.markdown(f"""
+#### 🔍 What the Heatmap Tells You:
+- Darker shades represent months with higher tourist numbers 📈.
+- Spot seasonal patterns like winters, festivals, or school holidays.
+- Detect outliers like dips during lockdowns or boosts from campaigns 🧭.
+- Use insights to plan marketing strategies or forecast infrastructure needs 🚧.
+""")
+
+
+
 # ----------- Pie Chart -----------
 st.subheader("🥧 Domestic vs Foreign Tourists")
+
+st.markdown(f"""
+Understand the tourist mix in {states} for {years}.  
+This pie chart gives quick insights on how to balance marketing efforts 🎯 between local explorers and global travelers.
+""")
+
 totals = filtered_df[['DOMESTIC', 'FOREIGN']].sum()
 fig_pie = px.pie(values=totals, names=totals.index,
                  title="Proportion of Domestic and Foreign Tourists",
@@ -187,6 +210,15 @@ st.plotly_chart(fig_pie, use_container_width=True)
 
 # ----------- Tourist Circuit Suggestions -----------
 st.subheader("🛤 Suggested Tourist Circuits")
+
+st.markdown("""
+Why visit just one destination when you can experience a journey of discovery? ✨  
+These curated multi-destination circuits combine culture, climate, and geography for unforgettable travel adventures 🚂.
+
+Explore sample 3–5 day circuits below. Ideal for both tourists and travel planners!
+""")
+
+
 assets_path = os.path.join("Tourism_trends", "assets")
 
 # Encode all circuit images
@@ -274,6 +306,12 @@ st.markdown(
 
 # ----------- Monthly Travel Suggestions -----------
 st.subheader("🗓 Best Places to Visit by Month")
+
+st.markdown("""
+No matter the month, India has magic waiting for you ✨  
+Pick a month to see tailored recommendations based on festivals, climate, and regional culture.
+""")
+
 recommendations = pd.DataFrame({
     "Month": month_order,
     "Recommended Places": [
@@ -293,7 +331,8 @@ recommendations = pd.DataFrame({
 })
 month_sel = st.selectbox("Select Month for Travel Recommendations", month_order)
 rec_place = recommendations[recommendations['Month'] == month_sel]['Recommended Places'].values[0]
-st.markdown(f"### Places recommended in **{month_sel}**: {rec_place}")
+st.markdown(f"### Places recommended in {month_sel}: {rec_place}")
+
 
 # ----------- Download filtered footfall data -----------
 def convert_df_to_csv(df):
@@ -304,3 +343,9 @@ st.download_button(label="⬇ Download Filtered Footfall Data as CSV",
                    data=csv_data,
                    file_name=f"footfall_{states}_{years}.csv",
                    mime='text/csv')
+
+# ----------- Footer -----------
+st.markdown("""
+---
+Tourism_trends
+""")
