@@ -14,7 +14,16 @@ def get_base64_of_bin_file(bin_file):
 def set_background():
     cherry_black = "#2E1A1A"
 
+<<<<<<< Updated upstream
     img_file = "../Dashboard/dashboard_data/image.jpg"
+=======
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    img_file = os.path.join(os.path.dirname(script_dir), "Dashboard", "dashboard_data", "image.jpg")
+
+    print(f"Looking for image at: {img_file}")
+    print(f"File exists: {os.path.exists(img_file)}")
+
+>>>>>>> Stashed changes
     img_base64 = get_base64_of_bin_file(img_file)
 
     st.markdown(
@@ -24,21 +33,45 @@ def set_background():
                 background-color: {cherry_black};
                 color: white;
                 font-family: 'Segoe UI', sans-serif;
-                padding: 0;
-            }}
-            .stMetric label {{
-                color: #ffffff;
-            }}
-            h1, h2, h3, .stSubheader {{
-                color: #F5CBA7;
             }}
             .block-container {{
                 padding: 0 2rem;
                 max-width: 100%;
+                color: white;
             }}
             .main > div {{
                 padding-top: 20px;
             }}
+
+            h1, h2, h3, h4, h5, h6,
+            .stSubheader, .stMarkdown, .stText, .stTextInput > div > div,
+            label, p, div, span, small {{
+                color: white !important;
+            }}
+
+            .stSelectbox label,
+            .stSelectbox div[data-baseweb="select"],
+            .stSelectbox div[class*="css"] > div,
+            .stTextInput input,
+            .stTextArea textarea,
+            .stSlider,
+            .stNumberInput input,
+            .stDateInput input {{
+                color: white !important;
+            }}
+
+            .stSelectbox [data-baseweb="select"] > div {{
+                background-color: #3c2a2a !important;
+                color: white !important;
+            }}
+
+            .stMetric {{
+                color: white !important;
+            }}
+            .stMetric label, .stMetric div {{
+                color: white !important;
+            }}
+
             .header-container {{
                 position: relative;
                 text-align: center;
@@ -50,16 +83,14 @@ def set_background():
                 border-radius: 12px;
                 overflow: hidden;
             }}
-            /* Overlay with opacity */
             .header-container::before {{
                 content: "";
                 position: absolute;
                 top: 0; left: 0; right: 0; bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+                background-color: rgba(0, 0, 0, 0.5);
                 z-index: 0;
                 border-radius: 12px;
             }}
-            /* Ensure text is above overlay */
             .header-container > * {{
                 position: relative;
                 z-index: 1;
@@ -113,13 +144,12 @@ def load_data():
     conn.close()
     return dfs["sites_df"], dfs["footfall_df"], dfs["endangered_df"], dfs["budget_df"]
 
-
 # --------------------- VISUAL COMPONENTS ---------------------
 
 def display_metrics(sites_df, footfall_df, endangered_df):
     total_sites = len(sites_df)
 
-    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['TOTAL', 'FOOTFALL', 'VISITORS', 'COUNT']]
+    footfall_cols = [col for col in footfall_df.columns if col.lower() in ['total', 'footfall', 'visitors', 'count']]
     if footfall_cols:
         total_footfall = footfall_df[footfall_cols[0]].sum()
     else:
@@ -157,7 +187,6 @@ def cultural_hotspots_map(sites_df):
     filtered_sites["LATITUDE"] = filtered_sites["LATITUDE"].apply(convert_coord)
     filtered_sites["LONGITUDE"] = filtered_sites["LONGITUDE"].apply(convert_coord)
 
-    # Adaptive zoom
     if len(filtered_sites) == 1:
         zoom_level = 10
     elif state_filter != "All States":
@@ -176,7 +205,6 @@ def cultural_hotspots_map(sites_df):
     )
     fig.update_layout(mapbox_style="open-street-map", margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig, use_container_width=True)
-
 
 def budget_chart(budget_df):
     st.subheader("💰 Cultural Budget Over the Years")
@@ -202,7 +230,6 @@ def budget_chart(budget_df):
 def run_dashboard():
     set_background()
 
-    # Custom greeting header with background image
     st.markdown(
         """
         <div class="header-container">
@@ -213,7 +240,6 @@ def run_dashboard():
         unsafe_allow_html=True
     )
 
-    # Load data
     sites_df, footfall_df, endangered_df, budget_df = load_data()
 
     st.markdown(
@@ -262,5 +288,4 @@ def run_dashboard():
 # --------------------- RUN ---------------------
 
 if __name__ == "__main__":
-
     run_dashboard()
