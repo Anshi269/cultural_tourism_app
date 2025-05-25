@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import base64
 import snowflake.connector
+
 import os
 
 st.set_page_config(page_title="Tourism Trends", layout="wide")
@@ -330,7 +331,7 @@ recommendations = pd.DataFrame({
 })
 month_sel = st.selectbox("Select Month for Travel Recommendations", month_order)
 rec_place = recommendations[recommendations['Month'] == month_sel]['Recommended Places'].values[0]
-st.markdown(f"### Places recommended in *{month_sel}*: {rec_place}")
+st.markdown(f"### Places recommended in {month_sel}: {rec_place}")
 
 
 # ----------- Download filtered footfall data -----------
